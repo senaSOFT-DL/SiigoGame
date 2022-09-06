@@ -3,11 +3,15 @@ import { Namespace, Server, Socket } from 'socket.io';
 import {sio} from './io';
 //Import interface
 import { Socket as DataSocket } from '../interfaces/Socket';
-import { createIdRoom, isValidatedIdRoom, saveRoomService } from '../services/room.service';
 import { DataRoom } from '../interfaces/Room';
+import { Callback } from '../interfaces/callback';
 import { DataUser } from '../interfaces/User';
+//Import services
+import { createIdRoom, isValidatedIdRoom, saveRoomService } from '../services/room.service';
 import { getResponse } from '../services/getResponse.service';
 import { addIdUser } from '../services/user.service';
+//Import controllers
+import { createRoom } from '../controllers/createRoom.controller';
 
 export const game = (io:Server):void =>{
     //Create nameSpace
@@ -25,20 +29,21 @@ export const game = (io:Server):void =>{
             });
             //?Create room 
             socket.on('room:create', async (data:DataRoom, callback)=>{
-                //Create id 
-                const _idRoom:string = createIdRoom();
-                const _owner:string = data._owner;
-                //save room
-                const result:boolean|DataRoom = await saveRoomService({_idRoom,_owner});
-                //Validamos resultado
-                if(!result) return callback({
-                    //Invalid response server - error server
-                    ...getResponse(502)
-                });
-                //Else
-                return callback({
-                    ...getResponse(200)
-                });
+                // //Create id 
+                // const _idRoom:string = createIdRoom();
+                // const _owner:string = data._owner;
+                // //save room
+                // const result:boolean|DataRoom = await saveRoomService({_idRoom,_owner});
+                // //Validamos resultado
+                // if(!result) return callback({
+                //     //Invalid response server - error server
+                //     ...getResponse(502)
+                // });
+                // //Else
+                // return callback({
+                //     ...getResponse(200)
+                // });
+                await createRoom(data,callback);
             });
             //?Create User
             socket.on('user:create', async (data:DataUser, callback) => {
