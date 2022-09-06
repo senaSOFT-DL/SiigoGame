@@ -34,3 +34,4 @@ export const isValidatedIdRoom = async (idRoom:string):Promise<boolean|null> => 
 	//Compared id 
 	return await compareID(idRoom);
 };
+
