@@ -1,7 +1,8 @@
 //Import hex-generator
 import {v4} from 'uuid';
 import { DataRoom } from '../interfaces/Room';
-import { saveRoom } from '../models/data';
+import { compareID, saveRoom } from '../models/data';
+import { Room } from '../models/entities/Room';
 
 export const createIdRoom = ():string => {
 	//Create id room hexa
@@ -11,9 +12,25 @@ export const createIdRoom = ():string => {
 	return id;
 };
 
-export const saveRoomService = async (data:DataRoom) => {
+export const saveRoomService = async (data:DataRoom):Promise<boolean|DataRoom> => {
 	//Validate data
+	const _owner = data._owner.toLowerCase(); 
 	
+	//Create room 
+	const room:DataRoom = new Room(data._idRoom,_owner);
 	//Save data room
-	const result:boolean = await saveRoom(data);
+	try {
+		//SAVE room -> Rooms 
+		await saveRoom(room);
+	} catch (error) {
+		console.error(`ERROR:ADD Room to Rooms`);
+		return false;
+	}
+	//All ok
+	return room;
+};
+
+export const isValidatedIdRoom = async (idRoom:string):Promise<boolean|null> => {
+	//Compared id 
+	return await compareID(idRoom);
 };
