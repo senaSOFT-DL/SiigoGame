@@ -14,7 +14,7 @@ export const createIdRoom = ():string => {
 
 export const saveRoomService = async (data:DataRoom):Promise<boolean|DataRoom> => {
 	//Validate data
-	const _owner = data._owner.toLowerCase(); 
+	const _owner = data._owner; 
 	
 	//Create room 
 	const room:DataRoom = new Room(data._idRoom,_owner);
