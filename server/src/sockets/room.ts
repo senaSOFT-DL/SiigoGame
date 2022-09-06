@@ -2,15 +2,13 @@
 import { Namespace, Server, Socket } from 'socket.io';
 import {sio} from './io';
 //Import interface
-import { Socket as DataSocket } from '../interfaces/Socket';
+import { Socket as DataSocket, SocketJoin } from '../interfaces/Socket';
 import { DataRoom } from '../interfaces/Room';
-import { Callback } from '../interfaces/callback';
 import { DataUser } from '../interfaces/User';
 //Import services
 import { createIdRoom, getUsers, isValidatedIdRoom, saveRoomService } from '../services/room.service';
 import { getResponse } from '../services/getResponse.service';
-import { addIdUser } from '../services/user.service';
-import { Room } from '../models/entities/Room';
+import { addNameUser } from '../services/user.service';
 //Import controllers
 
 export const game = (io:Server):void =>{
@@ -60,7 +58,7 @@ export const game = (io:Server):void =>{
                     ...getResponse(404)
                 })
                 //Save nameUser Room
-                const result:boolean|null|string = await addIdUser(data._idRoom, data._name);
+                const result:boolean|null|string = await addNameUser(data._idRoom, data._name);
                 if(!result)return callback({
                     msg:'Room',
                     ...getResponse(404)
@@ -100,8 +98,11 @@ export const game = (io:Server):void =>{
                 });
             });
             //?user join
-            socket.on('user:join',(data)=>{
-                
+            socket.on('user:join',async (data:SocketJoin)=>{
+                //Save nameUser a la sala
+                const result:boolean|null|string = await addNameUser(data.idRoom,data.nameUser);
+                //TODO-Unimos user to room 
+                socket.join(data.idRoom);
             });
         });
 };
