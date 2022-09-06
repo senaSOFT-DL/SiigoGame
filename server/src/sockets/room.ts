@@ -99,5 +99,9 @@ export const game = (io:Server):void =>{
                     ...getResponse(200)
                 });
             });
+            //?user join
+            socket.on('user:join',(data)=>{
+                
+            });
         });
 };
