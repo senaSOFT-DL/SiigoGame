@@ -46,10 +46,12 @@ export const CreateRoom = () => {
             }}
             //send Form data to server
             onSubmit={(values) => {
+              console.log(values);
               //socket emit to create Room
-              socket.emit("create:room", values.username, (response) => {
-                if (response.status === 200) {
-                  console.log(response);
+              socket.emit("room:create", values.username, (response) => {
+                //validate if the room was created
+                if(response.code == 200){
+                  console.warn('room created');
                 }
               });
             }}
