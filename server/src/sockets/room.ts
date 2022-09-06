@@ -7,11 +7,10 @@ import { DataRoom } from '../interfaces/Room';
 import { Callback } from '../interfaces/callback';
 import { DataUser } from '../interfaces/User';
 //Import services
-import { createIdRoom, isValidatedIdRoom, saveRoomService } from '../services/room.service';
+import { createIdRoom, getUsers, isValidatedIdRoom, saveRoomService } from '../services/room.service';
 import { getResponse } from '../services/getResponse.service';
 import { addIdUser } from '../services/user.service';
 //Import controllers
-import { createRoom } from '../controllers/createRoom.controller';
 
 export const game = (io:Server):void =>{
     //Create nameSpace
@@ -33,7 +32,8 @@ export const game = (io:Server):void =>{
                 const _idRoom:string = createIdRoom();
                 const _owner:string = data._owner;
                 //save room
-                const result:boolean|DataRoom = await saveRoomService({_idRoom,_owner});
+                const result:boolean|DataRoom = await saveRoomService({_idRoom, _owner,_namesUsers: []
+                });
                 //Validamos resultado
                 if(!result) return callback({
                     //Invalid response server - error server
@@ -75,9 +75,25 @@ export const game = (io:Server):void =>{
                 })
             });
 
-            //?Assign cards
-            socket.on('',()=>{
-                
+            //?Cound Users
+            socket.on('users:count',async (idRoom:string, callback)=>{
+                //Validated idRoom
+                const result:boolean|null = await isValidatedIdRoom(idRoom);
+                if(!result)return callback({
+                    msg:'Room',
+                    ...getResponse(404)
+                });
+                //Get number users
+                const resultUsers:number|null = await getUsers(idRoom);
+                //Validate
+                if(!resultUsers)return callback({
+                    msg:'Room',
+                    ...getResponse(404)
+                })
+                return callback({
+                    Users:resultUsers,
+                    ...getResponse(200)
+                });
             });
         });
 };
