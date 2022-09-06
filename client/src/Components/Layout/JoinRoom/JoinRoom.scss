@@ -1,8 +1,16 @@
-//import blocks
-@import '../../../Styles/Sass/blocks';
+//import blocks and variables
+@import "../../../Styles/Sass/blocks";
+@import '../../../Styles/Sass/Variables';
 
+.joinroom-content {
+  @extend %action-block;
+}
 
-.joinroom-content{
-    @extend %flex-column-block;
-    height: 275px;   
+.joinroom-container {
+  @extend %overlay-block;
+
+  .action-form{
+    @extend %action-block;
+    background: $primary-color;
+  }
 }

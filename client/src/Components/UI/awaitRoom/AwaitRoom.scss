@@ -1,0 +1,12 @@
+@import "../../../Styles/Sass/_blocks.scss";
+
+.await-overlay {
+  @extend %overlay-block;
+  .awaitroom-content {
+    cursor: inherit;
+    @extend %action-block;
+    background-color: $primary-color;
+    padding: 1em;
+    gap: 1em;
+  }
+}

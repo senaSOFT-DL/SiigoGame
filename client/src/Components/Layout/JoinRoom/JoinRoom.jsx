@@ -26,7 +26,7 @@ export const JoinRoom = () => {
         <GrGroup />
       </div>
       {showModal && (
-        <div className="createroom-content">
+        <div className="joinroom-container">
           <Formik
             initialValues={{
               username: "",

@@ -10,10 +10,14 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import socket from "../../../WebSockets/WebSockets";
 //import icon to close modal
 import { AiOutlineCloseCircle } from "react-icons/ai";
+import { Loading } from "../../UI/awaitRoom/Loading";
+import { AwaitRoom } from "../../UI/awaitRoom/AwaitRoom";
 
 //return the component
 export const CreateRoom = () => {
   const [showModal, setShowModal] = React.useState(false);
+  const [showLoading, setShowLoading] = React.useState(false);
+  const [roomId, setRoomId] = React.useState("");
 
   const handlerState = () => {
     setShowModal(!showModal);
@@ -21,12 +25,12 @@ export const CreateRoom = () => {
 
   return (
     <>
-      <div className="joinroom-content" onClick={() => handlerState()}>
+      <div className="createroom-content" onClick={() => handlerState()}>
         <h2>Crea una partida</h2>
         <BsFillPersonPlusFill />
       </div>
       {showModal && (
-        <div className="createroom-content">
+        <div className="createroom-container">
           <Formik
             initialValues={{
               username: "",
@@ -50,8 +54,13 @@ export const CreateRoom = () => {
               //socket emit to create Room
               socket.emit("room:create", values.username, (response) => {
                 //validate if the room was created
-                if(response.code == 200){
-                  console.warn('room created');
+                if (response.code === 200) {
+                  //close primaru modal
+                  setShowModal(false);
+                  //if the room was created, show the loading component
+                  setShowLoading(true);
+                  //set the room id
+                  setRoomId(response.roomId);
                 }
               });
             }}
@@ -74,6 +83,7 @@ export const CreateRoom = () => {
           </Formik>
         </div>
       )}
+      {showLoading && <AwaitRoom RoomId={roomId} />}
     </>
   );
 };
