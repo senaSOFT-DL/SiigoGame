@@ -1,0 +1,22 @@
+//import variables to colors blocks
+@import "./Variables.scss";
+
+%flex-column-block {
+  width: 100%;
+  outline: solid 1px red;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 1em;
+}
+
+%overlay-block {
+  @extend %flex-column-block;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  background: rgba(0, 0, 0, 0.6);
+}

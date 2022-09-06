@@ -1,15 +1,15 @@
 //import dependencies and libraries 
 import React, { Suspense } from "react";
+//import Normalize.css to reset all styles
+import './Styles/Normalize.css';
 
-//import components in lazy mode
-const Home = React.lazy(() => import("./Components/Page/Home/Home"));
+//import app Routes 
+import { UserRoutes } from "./Routes/UserRoutes";
 
 //return the component
 function App() {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <Home />
-    </Suspense>
+    <UserRoutes />
   );
 }
 

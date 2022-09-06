@@ -1,0 +1,14 @@
+//import blocks to reducer code for style
+@import '../../../Styles/Sass/_blocks.scss';
+
+.createroom-content{
+   @extend %overlay-block;
+
+   .action-form{
+      @extend %flex-column-block;
+      height: 300px;
+      width: 600px;
+      background: #FFF;
+   }
+}
+
