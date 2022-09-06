@@ -12,12 +12,13 @@ export const createIdRoom = ():string => {
 	return id;
 };
 
-export const saveRoomService = async (data:DataRoom):Promise<boolean|DataRoom> => {
+export const saveRoomService = async (data:DataRoom):Promise<boolean|string> => {
 	//Validate data
 	const _owner = data._owner; 
+	//TODO-Validate id room, que no exista
 	
 	//Create room 
-	const room:DataRoom = new Room(data._idRoom,_owner,[]);
+	const room:Room = new Room(data._idRoom,_owner,[]);
 	//Save data room
 	try {
 		//SAVE room -> Rooms 
@@ -27,7 +28,7 @@ export const saveRoomService = async (data:DataRoom):Promise<boolean|DataRoom> =
 		return false;
 	}
 	//All ok
-	return room;
+	return room._idRoom;
 };
 //Validamos el id de la sala
 export const isValidatedIdRoom = async (idRoom:string):Promise<boolean|null> => {

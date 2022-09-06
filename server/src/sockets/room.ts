@@ -10,6 +10,7 @@ import { DataUser } from '../interfaces/User';
 import { createIdRoom, getUsers, isValidatedIdRoom, saveRoomService } from '../services/room.service';
 import { getResponse } from '../services/getResponse.service';
 import { addIdUser } from '../services/user.service';
+import { Room } from '../models/entities/Room';
 //Import controllers
 
 export const game = (io:Server):void =>{
@@ -22,9 +23,10 @@ export const game = (io:Server):void =>{
             const data:DataSocket = {
                 socketId: socket.id
             }
+            console.table(data);
             //Disconected
             socket.on('disconnect', ()=>{
-                console.log(`Disconnected`);
+                console.log(`Disconnected: ${socket.id}`);
             });
             //?Create room 
             socket.on('room:create', async (data:DataRoom, callback)=>{
@@ -32,7 +34,7 @@ export const game = (io:Server):void =>{
                 const _idRoom:string = createIdRoom();
                 const _owner:string = data._owner;
                 //save room
-                const result:boolean|DataRoom = await saveRoomService({_idRoom, _owner,_namesUsers: []
+                const result:boolean|string = await saveRoomService({_idRoom, _owner,_namesUsers: []
                 });
                 //Validamos resultado
                 if(!result) return callback({
@@ -40,7 +42,9 @@ export const game = (io:Server):void =>{
                     ...getResponse(502)
                 });
                 //Else
+                console.log(`Room Create ✔ =\t${result}`);
                 return callback({
+                    roomId:result,
                     ...getResponse(200)
                 });
                 // await createRoom(data,callback);
@@ -74,7 +78,6 @@ export const game = (io:Server):void =>{
                     ...getResponse(200)
                 })
             });
-
             //?Cound Users
             socket.on('users:count',async (idRoom:string, callback)=>{
                 //Validated idRoom
@@ -90,6 +93,7 @@ export const game = (io:Server):void =>{
                     msg:'Room',
                     ...getResponse(404)
                 })
+                console.log(`Room:${idRoom} - Users Room: ${resultUsers}`);
                 return callback({
                     Users:resultUsers,
                     ...getResponse(200)
