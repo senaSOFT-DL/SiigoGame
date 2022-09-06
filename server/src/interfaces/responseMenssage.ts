@@ -1,4 +1,4 @@
 export interface ResponseMessage{
-    msg:string;
+    status:string;
     code:number;
 };
