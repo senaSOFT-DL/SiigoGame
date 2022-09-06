@@ -11,7 +11,7 @@ const server:http.Server=http.createServer(app);
 
 const main = async () => {
 	//Get Port
-	const PORT = process.env.PORT || 3000;
+	const PORT = process.env.PORT || 3002;
 	//Craete cors sockets
 	sio.attach(server, {
 		cors:{
