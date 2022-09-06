@@ -51,16 +51,20 @@ export const CreateRoom = () => {
             //send Form data to server
             onSubmit={(values) => {
               console.log(values);
+              
               //socket emit to create Room
               socket.emit("room:create", values.username, (response) => {
                 //validate if the room was created
+                
                 if (response.code === 200) {
-                  //close primaru modal
+                  //set the room id
+                  setRoomId(response.roomId);
+                  //close primary modal      
                   setShowModal(false);
                   //if the room was created, show the loading component
                   setShowLoading(true);
-                  //set the room id
-                  setRoomId(response.roomId);
+                  
+                  
                 }
               });
             }}
@@ -83,7 +87,7 @@ export const CreateRoom = () => {
           </Formik>
         </div>
       )}
-      {showLoading && <AwaitRoom RoomId={roomId} />}
+      {showLoading && <AwaitRoom RoomId={roomId} role='owner' />}
     </>
   );
 };

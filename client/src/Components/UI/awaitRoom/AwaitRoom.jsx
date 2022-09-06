@@ -6,9 +6,10 @@ import { Loading } from "./Loading";
 //import stylesheet
 import "./AwaitRoom.scss";
 
-export const AwaitRoom = ({ roomId }) => {
+export const AwaitRoom = ({ roomId , role }) => {
   //state for count the players in the room
   const [players, setPlayers] = React.useState(0);
+
 
   //effect for count in real time the players in the room
   React.useEffect(() => {
@@ -20,21 +21,38 @@ export const AwaitRoom = ({ roomId }) => {
 
   return (
     <div className="await-overlay">
-      <div className="awaitroom-content">
-        {
-          //conditional render for show the players in the room
-          players === 1 ? (
-            <h2>Esperando jugadores...</h2>
-          ) : (
-            <h2>Jugadores en sala... {players}</h2>
-          )
-        }
-        <Loading />
-        {
-          //conditional render for show the button to start the game
-          players >= 2 ? <button>Empezar partida</button> : null
-        }
-      </div>
+      {role === "owner" ? (
+        <div className="awaitroom-content">
+          {
+            //conditional render for show the players in the room
+            players === 1 ? (
+              <h2>Esperando jugadores...</h2>
+            ) : (
+              <h2>Jugadores en sala... {players}</h2>
+              
+            )
+          }
+          
+          <Loading />
+          {
+            //conditional render for show the button to start the game
+            players >= 2 ? <button>Empezar partida</button> : null
+          }
+        </div>
+      ) : (
+        <div className="awaitroom-content">
+          {
+            //conditional render for show the players in the room
+            players === 1 ? (
+              <h2>Esperando jugadores...</h2>
+            ) : (
+              <h2>Jugadores en sala... {players}</h2>
+            )
+          }
+          <Loading />
+          <h2>Esperando al lider para empezar la partida</h2>
+        </div>
+      )}
     </div>
   );
 };
