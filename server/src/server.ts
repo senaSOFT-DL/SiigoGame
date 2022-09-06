@@ -39,6 +39,7 @@ Promise.all(
 ).then(()=>{
 	// start server
 	main();
+	console.log('Initialized ✔');
 }).catch((err)=>{
 	//get errors
 	console.error(`ERROR:: Initializing ${err}`);
