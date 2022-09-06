@@ -1,0 +1,8 @@
+//import blocks
+@import '../../../Styles/Sass/blocks';
+
+
+.joinroom-content{
+    @extend %flex-column-block;
+    height: 275px;   
+}
