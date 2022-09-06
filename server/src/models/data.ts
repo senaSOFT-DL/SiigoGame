@@ -41,7 +41,7 @@ export const compareID = async (idRoom:string):Promise<null|boolean> => {
 	return true;
 };
 //Agregamos id user
-export const saveIdUser = async (idRoom:string,nameUser:string):Promise<boolean|null|string> => {
+export const saveNameUser = async (idRoom:string,nameUser:string):Promise<boolean|null|string> => {
 	//Get object by idRoom
 	const findRoom:DataRoom|undefined = Rooms.find(el => el._idRoom == idRoom);
 	//Validamos si obtenemos la sala
@@ -54,8 +54,6 @@ export const saveIdUser = async (idRoom:string,nameUser:string):Promise<boolean|
 	findRoom._namesUsers?.push(nameUser);
 	return true;
 };
-
-
 //Obtenemos los usuarios de una sala
 export const getUsersByIdRoom = async (idRoom:string):Promise<number|null> => {
 	//Get Room by id
