@@ -1,5 +1,5 @@
 import { Server } from 'socket.io';
-import { room } from './room';
+import { game } from './room';
 
 // instanciamos Server
 const createServer = ():Server => {
@@ -10,7 +10,7 @@ const createServer = ():Server => {
 const sio:Server =createServer();
 
 //NameSpaces
-room(sio);
+game(sio);
 
 //Exporting
 export {sio};
