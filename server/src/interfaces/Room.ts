@@ -1,4 +1,4 @@
 export interface DataRoom {
-    idRoom:string;
-    owner:string;
+    _idRoom:string;
+    _owner:string;
 }
