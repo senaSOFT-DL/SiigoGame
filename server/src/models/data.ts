@@ -7,7 +7,7 @@ const Rooms:Array<DataRoom> = [
 	{
 		_idRoom: '9b1deb4d',
 		_owner: 'juan',
-		_namesUsers: []
+		_namesUsers: ['carlos']
 	},
 ]; 
 //Users
@@ -22,6 +22,12 @@ const Users:Array<DataUser> = [
 
 
 //Methos 
+
+//Get Room by id
+export const getRoomById = async (idRoom:string):Promise<DataRoom|undefined> => {
+	return Rooms.find(ele => ele._idRoom === idRoom);
+};
+//Save roomm
 export const saveRoom = async (Room:DataRoom):Promise<void> =>{
 	//ADD room -> Rooms 
 	Rooms.push(Room);
@@ -41,10 +47,22 @@ export const saveIdUser = async (idRoom:string,nameUser:string):Promise<boolean|
 	//Validamos si obtenemos la sala
 	if(!findRoom)return null; //No encontrado
 	//Search name and compared
-	const findNameUser:string|undefined = findRoom?._namesUsers?.find(ele => ele === nameUser);
+	const findNameUser:string|null|undefined = findRoom?._namesUsers?.find(ele => ele === nameUser);
 	//Validamos si el nombre se encuentra
 	if(!findNameUser)return 'exist'; //Existe el user
 	//agregamos a la lista el usuario
 	findRoom._namesUsers?.push(nameUser);
 	return true;
+};
+
+
+//Obtenemos los usuarios de una sala
+export const getUsersByIdRoom = async (idRoom:string):Promise<number|null> => {
+	//Get Room by id
+	const findRoom:DataRoom|undefined = await getRoomById(idRoom);
+	//Validate
+	if(!findRoom) return null;//No hay salas con este id
+	const users:Array<string|null> = findRoom._namesUsers;
+	//long
+	return users.length || 0;
 };
