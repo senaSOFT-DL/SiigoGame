@@ -105,7 +105,7 @@ export const game = (io:Server):void =>{
                 });
             });
             //?user join
-            socket.on('user:join',async (data, callback)=>{
+            socket.on('user:join',async (data:SocketJoinUser, callback)=>{
                 const idRoom:string = data.room;
                 const nameUser = data.username
                 console.log(data);
