@@ -170,10 +170,11 @@ export const game = (io:Server):void =>{
                 getCards();
             });
             //?Ready Game
-            socket.on('ready', (idRoom:string, callback) => {
+            socket.on('ready', async (idRoom:string, callback) => {
                 callback({
                     ...getResponse(200)
                 })
+                await getCards();
                 console.log('STARTED GAME');
                 socket.to(idRoom).emit('start',{msg:'started game'});
             });
