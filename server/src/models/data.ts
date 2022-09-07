@@ -34,8 +34,10 @@ export const saveRoom = async (Room:DataRoom):Promise<void> =>{
 };
 //Comparamos id Room
 export const compareID = async (idRoom:string):Promise<null|boolean> => {
+	console.log(`IdRoom a buscar: ${idRoom}`);
 	//Obtenemos el id si existe
 	const findId:DataRoom|undefined = Rooms.find(ele => ele._idRoom === idRoom);
+	console.log(`ID Found: ${findId}`);
 	//Validated result
 	if(!findId)return null; // Not match
 	return true;

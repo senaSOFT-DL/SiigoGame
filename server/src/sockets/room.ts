@@ -105,16 +105,28 @@ export const game = (io:Server):void =>{
             });
             //?user join
             socket.on('user:join',async (data:SocketJoinUser, callback)=>{
+                const idRoom:string = data.room;
+                console.log('-> ',idRoom);
+                //Validate idRoom
+                const codeValid:boolean|null = await isValidatedIdRoom(idRoom);
+                if(!codeValid){
+                    console.log(`IdRoom no valido ${idRoom}`);
+                    return callback({
+                        msq:Room,
+                        ...getResponse(404)
+                    })
+                }
+                console.log(`El IdRoom es valido ${idRoom}`);
                 //valid users room
-                const countUsers:number|null = await getUsers(data.idRoom);
+                const countUsers:number|null = await getUsers(idRoom);
                 if(!countUsers) return;
-                console.log(`Room: ${data.idRoom} -> Users:${countUsers}`);
+                console.log(`Room: ${idRoom} -> Users:${countUsers}`);
                 const isValidate:boolean = isValidAddUsers(countUsers);
                 //if valid
                 if(!isValidate)return callback({msq:Room,...getResponse(601)})//Full Room
                 //else
                 //Save nameUser a la sala
-                const result:boolean|null|string = await addNameUser(data.idRoom,data.nameUser);
+                const result:boolean|null|string = await addNameUser(idRoom,data.nameUser);
                 //validate
                 //Room not found
                 if(!result) return callback({
@@ -131,7 +143,7 @@ export const game = (io:Server):void =>{
                     ...getResponse(200)
                 });
                 //TODO-Unimos user to room 
-                socket.join(data.idRoom);
+                socket.join(data.room);
             });
         });
 };

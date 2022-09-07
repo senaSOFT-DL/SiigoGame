@@ -3,6 +3,6 @@ export interface Socket {
 }
 
 export interface SocketJoinUser {
-    idRoom:string;
+    room:string;
     nameUser:string;
 }
