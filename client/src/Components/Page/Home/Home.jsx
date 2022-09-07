@@ -22,7 +22,9 @@ export default function Home() {
         //MainMode component to render in Home page
       }
       <Overlay>
-        <h1>Siigo Battle match</h1>
+       <div className="banner-container">
+        <img src="https://res.cloudinary.com/easyhouserent/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1662582532/samples/pokemon_oyl8li.jpg" alt="banner" />
+       </div>
         <MainMode />
       </Overlay>
     </div>

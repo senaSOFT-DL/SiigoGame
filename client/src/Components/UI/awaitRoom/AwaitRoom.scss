@@ -1,12 +1,50 @@
 @import "../../../Styles/Sass/_blocks.scss";
+@import '../../../Styles/Sass/Variables';
 
 .await-overlay {
   @extend %overlay-block;
+
   .awaitroom-content {
-    cursor: inherit;
-    @extend %action-block;
-    background-color: $primary-color;
-    padding: 1em;
+    border-radius: 10px;
+    background: $primary-color;
+    padding: 1.5em 2em;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    width: 320px;
     gap: 1em;
+
+    .code-room{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5em;
+
+      h2[title="code"]{
+        background: $secondary-color;
+        color: $primary-color;
+        padding: 0.5em;
+        border-radius: 10px;
+      }
+    }
+
+    h2{
+      @extend %title-block;
+      font-size: 16px;
+    }
+
+    button{
+      @extend %button-block;
+    }
+
+    .status-container{
+      display: flex;
+      justify-content: center;
+      width: 100%;
+
+      .status{
+        text-align: center;
+      }
+    }
   }
 }

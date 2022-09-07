@@ -1,34 +1,53 @@
 //import blocks and variables
 @import "../../../Styles/Sass/blocks";
-@import '../../../Styles/Sass/Variables';
+@import "../../../Styles/Sass/Variables";
 
 .joinroom-content {
   @extend %action-block;
+
+  h2 {
+    @extend %title-block;
+  }
+
+  .action-icon {
+    @extend %icon-action;
+  }
 }
 
 .joinroom-container {
   @extend %overlay-block;
 
-  .action-form{
+  .action-form {
     background: $primary-color;
+    border-radius: 10px;
 
-    .header-modal{
+    .header-modal {
       display: flex;
       justify-content: flex-end;
-      padding: .25em;
+      padding: 0.25em;
 
-      .icon-header{
+      .icon-header {
         @extend %icon-header;
+        color: $secondary-color;
       }
     }
 
-    .form-content{
+    .form-content {
       @extend %form-block;
       gap: 1em;
       padding: 1em;
+
+      h1 {
+        @extend %title-block;
+      }
+     
+      .join-button{
+        @extend %button-block;
+        
+      }
     }
 
-    input[type="text"]{
+    input[type="text"] {
       @extend %input-block;
     }
   }

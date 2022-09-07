@@ -2,8 +2,18 @@
 @import "../../../Styles/Sass/blocks";
 @import '../../../Styles/Sass/Variables';
 
+
+
 .createroom-content {
   @extend %action-block;
+
+  h2{
+    @extend %title-block;
+  }
+
+  .action-icon{
+    @extend %icon-action;
+  }
 }
 
 .createroom-container {
@@ -11,6 +21,7 @@
 
   .action-form{
     background: $primary-color;
+    border-radius: 10px;
 
     .header-modal{
       display: flex;
@@ -26,6 +37,14 @@
       @extend %form-block;
       gap: 1em;
       padding: 1em;
+
+      .title{
+        @extend %title-block;
+      }
+    }
+
+    .form-button{
+      @extend %button-block;
     }
 
     input[type="text"]{

@@ -2,7 +2,7 @@
 import React from "react";
 import { AwaitRoom } from "../../UI/awaitRoom/AwaitRoom";
 //import group icon
-import { GrGroup } from "react-icons/gr";
+import { HiUserGroup } from "react-icons/hi";
 //import stylesheet
 import "./JoinRoom.scss";
 //Formik is a library that helps us to create controller forms
@@ -17,7 +17,7 @@ import RoomContext from "../../../roomContext/RoomContext";
 export const JoinRoom = () => {
   const [showModal, setShowModal] = React.useState(false);
 
-  const { changeData} = React.useContext(RoomContext);
+  const { changeData } = React.useContext(RoomContext);
 
   const [userJoined, setUserJoined] = React.useState(false);
 
@@ -28,8 +28,9 @@ export const JoinRoom = () => {
   return (
     <>
       <div className="joinroom-content" onClick={() => handlerState()}>
-        <h2>Entra a una partida</h2>
-        <GrGroup />
+        <HiUserGroup className="action-icon" />
+
+        <h2>Join</h2>
       </div>
       {showModal && (
         <div className="joinroom-container">
@@ -52,7 +53,7 @@ export const JoinRoom = () => {
               return errors;
             }}
             //send Form data to server
-            onSubmit={ async (values) => {
+            onSubmit={async (values) => {
               //socket emit to joined Room
               changeData(values.room);
               await socket.emit("user:join", values, (response) => {
@@ -76,7 +77,10 @@ export const JoinRoom = () => {
               <Form className="action-form">
                 {" "}
                 <div className="header-modal">
-                  <AiOutlineCloseCircle className="icon-header" onClick={() => handlerState()} />
+                  <AiOutlineCloseCircle
+                    className="icon-header"
+                    onClick={() => handlerState()}
+                  />
                 </div>
                 <div className="form-content">
                   <h1>Unirse a una partida</h1>
@@ -85,8 +89,8 @@ export const JoinRoom = () => {
                     name="username"
                     component={() => <p>{errors.username}</p>}
                   />
-                  <Field type="text" name="room" placeholder="roomId"/>
-                  <button type="submit">Enviar</button>
+                  <Field type="text" name="room" placeholder="roomId" />
+                  <button className="join-button" type="submit">join</button>
                 </div>
               </Form>
             )}

@@ -1,3 +1,5 @@
+@import '../../../Styles/Sass/Variables';
+
 .lds-ellipsis {
     display: inline-block;
     position: relative;
@@ -10,7 +12,7 @@
     width: 13px;
     height: 13px;
     border-radius: 50%;
-    background: #000;
+    background: $tertialy-color;
     animation-timing-function: cubic-bezier(0, 1, 1, 0);
   }
   .lds-ellipsis div:nth-child(1) {

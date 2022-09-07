@@ -27,8 +27,9 @@ export const CreateRoom = () => {
   return (
     <>
       <div className="createroom-content" onClick={() => handlerState()}>
-        <h2>Crea una partida</h2>
-        <BsFillPersonPlusFill />
+        <BsFillPersonPlusFill className="action-icon" />
+
+        <h2>Create</h2>
       </div>
       {showModal && (
         <div className="createroom-container">
@@ -71,16 +72,16 @@ export const CreateRoom = () => {
             {({ errors }) => (
               <Form className="action-form">
                 <div className="header-modal">
-                  <AiOutlineCloseCircle onClick={() => handlerState()} />
+                  <AiOutlineCloseCircle onClick={() => handlerState()}  className="icon-header"/>
                 </div>
                 <div className="form-content">
-                  <h1>Crea una partida</h1>
-                  <Field type="text" name="username" />
+                  <h1 className="title">Crea una partida</h1>
+                  <Field type="text" name="username"  placeholder="usename"/>
                   <ErrorMessage
                     name="username"
                     component={() => <p>{errors.username}</p>}
                   />
-                  <button type="submit">Enviar</button>
+                  <button className="form-button" type="submit">create</button>
                 </div>
               </Form>
             )}
