@@ -18,7 +18,7 @@ export interface DataApi {
     count:number;
     next:string;
     previous:null;
-results:Array<Results>;
+    results:Array<Results>;
 }
 
 export interface Results {

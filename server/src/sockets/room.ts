@@ -174,7 +174,12 @@ export const game = (io:Server):void =>{
                 callback({
                     ...getResponse(200)
                 })
-                await getCards();
+                try {
+                    await getCards();
+                } catch (error) {
+                    throw new Error(`ERROR: get Data Carts:: ${error} `);
+                    
+                }
                 console.log('STARTED GAME');
                 socket.to(idRoom).emit('start',{msg:'started game'});
             });
