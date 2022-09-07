@@ -1,5 +1,5 @@
 #Bajamos la imagen si no exite
-FROM node:16.17.0
+FROM node:16.13.2-alpine
 #Creamos el dir
 WORKDIR /siigoGame
 #Copiamos las depencencias y las pasamos al directorio
