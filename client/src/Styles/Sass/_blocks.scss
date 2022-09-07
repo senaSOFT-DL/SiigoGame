@@ -23,7 +23,29 @@
 
 %action-block{
   cursor: pointer;
-  height: 230px;
+  height: 260px;
   width: 400px;
   @extend %flex-column-block;
+}
+
+%form-block{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 400px;
+  height: 260px;
+  padding: 1em;
+}
+
+%input-block{
+  width: 100%;
+  padding: 0.5em;
+  outline: solid 1px red;
+  border-radius: 20px;
+}
+
+%icon-header{
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
 }

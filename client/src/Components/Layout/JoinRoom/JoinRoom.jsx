@@ -53,6 +53,7 @@ export const JoinRoom = () => {
               //socket emit to joined Room
               console.warn(values);
               socket.emit("user:join", values, (response) => {
+                console.log(response);
                 //validate response codes from server
                 if (response.code === 404) {
                   console.warn("room does not exist");
@@ -72,16 +73,18 @@ export const JoinRoom = () => {
               <Form className="action-form">
                 {" "}
                 <div className="header-modal">
-                  <AiOutlineCloseCircle onClick={() => handlerState()} />
+                  <AiOutlineCloseCircle className="icon-header" onClick={() => handlerState()} />
                 </div>
-                <h1>Unirse a una partida</h1>
-                <Field type="text" name="username" />
-                <ErrorMessage
-                  name="username"
-                  component={() => <p>{errors.username}</p>}
-                />
-                <Field type="text" name="room" />
-                <button type="submit">Enviar</button>
+                <div className="form-content">
+                  <h1>Unirse a una partida</h1>
+                  <Field type="text" name="username" placeholder="username" />
+                  <ErrorMessage
+                    name="username"
+                    component={() => <p>{errors.username}</p>}
+                  />
+                  <Field type="text" name="room" placeholder="roomId" />
+                  <button type="submit">Enviar</button>
+                </div>
               </Form>
             )}
           </Formik>

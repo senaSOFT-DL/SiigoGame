@@ -10,7 +10,26 @@
   @extend %overlay-block;
 
   .action-form{
-    @extend %action-block;
     background: $primary-color;
+
+    .header-modal{
+      display: flex;
+      justify-content: flex-end;
+      padding: .25em;
+
+      .icon-header{
+        @extend %icon-header;
+      }
+    }
+
+    .form-content{
+      @extend %form-block;
+      gap: 1em;
+      padding: 1em;
+    }
+
+    input[type="text"]{
+      @extend %input-block;
+    }
   }
 }
