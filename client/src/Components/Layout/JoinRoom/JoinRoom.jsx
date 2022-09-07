@@ -15,6 +15,7 @@ import { AiOutlineCloseCircle } from "react-icons/ai";
 //return the component
 export const JoinRoom = () => {
   const [showModal, setShowModal] = React.useState(false);
+  const [ idRoom , setIdRoom ] = React.useState("");
 
   const [userJoined, setUserJoined] = React.useState(false);
 
@@ -51,6 +52,7 @@ export const JoinRoom = () => {
             //send Form data to server
             onSubmit={(values) => {
               //socket emit to joined Room
+              setIdRoom(values.room);
               socket.emit("user:join", values, (response) => {
                 console.log(response);
                 //validate response codes from server
@@ -81,7 +83,7 @@ export const JoinRoom = () => {
                     name="username"
                     component={() => <p>{errors.username}</p>}
                   />
-                  <Field type="text" name="room" placeholder="roomId" />
+                  <Field type="text" name="room" placeholder="roomId"/>
                   <button type="submit">Enviar</button>
                 </div>
               </Form>
@@ -89,7 +91,7 @@ export const JoinRoom = () => {
           </Formik>
         </div>
       )}
-      {userJoined && <AwaitRoom role="player" />}
+      {userJoined && <AwaitRoom role="player" roomId={idRoom} />}
     </>
   );
 };

@@ -7,10 +7,13 @@ import { Loading } from "./Loading";
 import "./AwaitRoom.scss";
 import UserContext from "../../../UserContext/UserContext";
 
-export const AwaitRoom = ({ roomId, role }) => {
+export const AwaitRoom = ({ role, roomId}) => {
   //state for count the players in the room
   const [players, setPlayers] = React.useState(0);
 
+  React.useEffect(() =>{
+    console.log(players);
+  },[players,socket])
   //use the user context
   const { user } = React.useContext(UserContext);
 
@@ -20,12 +23,13 @@ export const AwaitRoom = ({ roomId, role }) => {
 
   //effect for count in real time the players in the room
   React.useEffect(() => {
-    socket.emit("users:count", roomId, (response) => {
-      console.log(response);
+    socket.emit("users:count",roomId, (response) => {
+      
       //validate players
+      console.log(response);
       response.status > 1 ? setPlayers(response.status) : setPlayers(1);
     });
-  }, [socket]);
+  }, [socket ]);
 
   return (
     <div className="await-overlay">
@@ -64,7 +68,6 @@ export const AwaitRoom = ({ roomId, role }) => {
           <h2>Esperando al lider para empezar la partida</h2>
         </div>
       )}
-      )
     </div>
   );
 };

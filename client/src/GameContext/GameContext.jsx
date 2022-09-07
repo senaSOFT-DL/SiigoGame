@@ -7,6 +7,7 @@ const GameContext = React.createContext();
 export const GameProvider = ({ children }) => {
   //initial data state
   const [gameData, setGameData] = React.useState({});
+  const [ players, setPlayers ] = React.useState(0);
 
   //Load data from localStorage to React state
   React.useEffect(() => {
@@ -27,6 +28,7 @@ export const GameProvider = ({ children }) => {
     setGameData(dataToSave);
   };
 
+ 
   const clearData = () => {
     //clear data from LocalStorage and react State
     const clear = null;
