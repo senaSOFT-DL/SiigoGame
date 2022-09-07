@@ -28,9 +28,12 @@ export const getRoomById = async (idRoom:string):Promise<DataRoom|undefined> => 
 	return Rooms.find(ele => ele._idRoom === idRoom);
 };
 //Save roomm
-export const saveRoom = async (Room:DataRoom):Promise<void> =>{
+export const saveRoom = async (room:DataRoom):Promise<void> =>{
 	//ADD room -> Rooms 
-	Rooms.push(Room);
+	const x = Rooms.push(room);
+	const result = await saveNameUser(room._idRoom,room._owner);
+	if(!result) throw new Error("No se puedo guardar el owner a la sala");
+	console.log('Rooms:',Rooms);
 };
 //Comparamos id Room
 export const compareID = async (idRoom:string):Promise<null|boolean> => {
@@ -49,11 +52,29 @@ export const saveNameUser = async (idRoom:string,nameUser:string):Promise<boolea
 	//Validamos si obtenemos la sala
 	if(!findRoom)return null; //Sala No encontrada
 	//Search name and compared
-	const findNameUser:string|null|undefined = findRoom?._namesUsers?.find(ele => ele === nameUser);
+	const listusers = findRoom._namesUsers;
+	if(!listusers)return null;
+	console.log(listusers.length);
+	if(listusers.length === 0){
+		//agregamos a la lista el usuario
+		findRoom._namesUsers?.push(nameUser);
+		return true;
+	}
+	//Else
+	const findNameUser = listusers.find(ele => ele === nameUser);
+	let foundUser;
+	for(let ele of listusers){
+		// console.log('User',ele)
+		if(ele === nameUser){
+			foundUser = ele;
+		}
+	}
 	//Validamos si el nombre se encuentra
-	if(!findNameUser)return 'exist'; //Existe el user
+	if(foundUser)return 'exist'; //Existe el user
 	//agregamos a la lista el usuario
-	findRoom._namesUsers?.push(nameUser);
+	listusers.push(nameUser);
+	console.log(Rooms);
+	
 	return true;
 };
 //Obtenemos los usuarios de una sala

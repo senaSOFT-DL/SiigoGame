@@ -4,5 +4,5 @@ export interface Socket {
 
 export interface SocketJoinUser {
     room:string;
-    nameUser:string;
+    username:string;
 }
