@@ -43,9 +43,10 @@ export const AwaitRoom = ({ role, roomId }) => {
   //function to validate players
   useEffect(() => {
     socket.on("start", (data) => {
-      if (data.msg === "started game") {
-        navigate("/game");
-      }
+      console.log(data);
+      // if (data.msg === "started game") {
+      //   navigate("/game");
+      // }
     });
   }, [socket]);
 
