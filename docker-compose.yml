@@ -14,4 +14,12 @@ services:
         command: >
             --requirepass 0606
     app:
-        # build: ./dev
+        build: ./server
+        image: dev/app-siigo-game
+        expose: 
+            - 3002
+        ports:
+            - 3002:3000
+        depends_on:
+            redis:
+                condition: service_started
