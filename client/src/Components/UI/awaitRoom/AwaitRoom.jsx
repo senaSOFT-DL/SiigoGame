@@ -35,14 +35,19 @@ export const AwaitRoom = ({ role, roomId }) => {
   }, [socket]);
 
   const sendToGame = () => {
-    socket.emit('ready',( user.room , (response) => {
+    socket.emit('ready',user.room , response  => {
       console.log(response);
-    }))
+      if(response === 'ok'){
+        navigate('/game');
+      }
+    })
   };
 
   useEffect(() => {
     socket.on("start", (data) => {
-      console.log(data);
+      if(data.msg === 'started game'){
+        navigate("/game");
+      }
     });
   }, [socket]);
 
