@@ -44,9 +44,9 @@ export const AwaitRoom = ({ role, roomId }) => {
   useEffect(() => {
     socket.on("start", (data) => {
       console.log(data);
-      // if (data.msg === "started game") {
-      //   navigate("/game");
-      // }
+      if (data.msg === "started game") {
+        navigate("/game");
+      }
     });
   }, [socket]);
 

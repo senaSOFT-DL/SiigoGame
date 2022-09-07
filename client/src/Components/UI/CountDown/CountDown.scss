@@ -1,0 +1,20 @@
+@import '../../../Styles/Sass/Variables';
+
+.header-countdown{
+    width: 100%;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.countdown{
+    border: 2px solid $tertialy-color;
+    border-radius: 10px;
+    padding: 0.35em;
+    font-family: poppins;
+    letter-spacing: 5px;
+    font-weight: bolder;
+    background: $secondary-color;
+    color: $primary-color;
+    font-size: 25px;
+}
