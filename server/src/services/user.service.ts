@@ -1,6 +1,5 @@
 import { getUsersByIdRoom, saveNameUser } from '../models/data';
 
-
 //Validated id
 //Add id to Room
 export const addNameUser = async (idRoom:string, nameUser:string):Promise<boolean|null|string> => {
