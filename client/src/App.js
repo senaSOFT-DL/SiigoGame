@@ -7,12 +7,18 @@ import "./Styles/Normalize.css";
 //import app Routes
 import { UserRoutes } from "./Routes/UserRoutes";
 import { UserProvider } from "./UserContext/UserContext";
+import { GameProvider } from "./GameContext/GameContext";
 
 //return the component
 function App() {
+  const time = new Date();
+  time.setSeconds(time.getSeconds() + 600); // 10 minutes timer
+
   return (
     <UserProvider>
-      <UserRoutes />
+      <GameProvider>
+        <UserRoutes />
+      </GameProvider>
     </UserProvider>
   );
 }

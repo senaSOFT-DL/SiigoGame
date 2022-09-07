@@ -1,15 +1,35 @@
-//import blocks and variables to reducer code for style
-@import "../../../Styles/Sass/_blocks.scss";
-@import "../../../Styles/Sass/_Variables.scss";
+//import blocks and variables
+@import "../../../Styles/Sass/blocks";
+@import '../../../Styles/Sass/Variables';
 
 .createroom-content {
   @extend %action-block;
 }
+
 .createroom-container {
   @extend %overlay-block;
 
-  .action-form {
-    @extend %action-block;
-    background-color: $primary-color;
+  .action-form{
+    background: $primary-color;
+
+    .header-modal{
+      display: flex;
+      justify-content: flex-end;
+      padding: .25em;
+
+      .icon-header{
+        @extend %icon-header;
+      }
+    }
+
+    .form-content{
+      @extend %form-block;
+      gap: 1em;
+      padding: 1em;
+    }
+
+    input[type="text"]{
+      @extend %input-block;
+    }
   }
 }

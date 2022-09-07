@@ -19,7 +19,7 @@ export const CreateRoom = () => {
   const [showLoading, setShowLoading] = React.useState(false);
 
   const { changeData } = React.useContext(UserContext);
-  
+
   const handlerState = () => {
     setShowModal(!showModal);
   };
@@ -34,7 +34,7 @@ export const CreateRoom = () => {
         <div className="createroom-container">
           <Formik
             initialValues={{
-              username: "",
+              _owner: "",
             }}
             validate={(values) => {
               let errors = {};
@@ -52,15 +52,15 @@ export const CreateRoom = () => {
             //send Form data to server
             onSubmit={(values) => {
               console.log(values);
-              
+
               //socket emit to create Room
               socket.emit("room:create", values.username, (response) => {
                 //validate if the room was created
-                
+
                 if (response.code === 200) {
                   //set the new user data
                   changeData(values.username, response.roomId);
-                  //close primary modal      
+                  //close primary modal
                   setShowModal(false);
                   //if the room was created, show the loading component
                   setShowLoading(true);
@@ -73,20 +73,21 @@ export const CreateRoom = () => {
                 <div className="header-modal">
                   <AiOutlineCloseCircle onClick={() => handlerState()} />
                 </div>
-                <div className="header-modal"></div>
-                <h1>Crea una partida</h1>
-                <Field type="text" name="username" />
-                <ErrorMessage
-                  name="username"
-                  component={() => <p>{errors.username}</p>}
-                />
-                <button type="submit">Enviar</button>
+                <div className="form-content">
+                  <h1>Crea una partida</h1>
+                  <Field type="text" name="username" />
+                  <ErrorMessage
+                    name="username"
+                    component={() => <p>{errors.username}</p>}
+                  />
+                  <button type="submit">Enviar</button>
+                </div>
               </Form>
             )}
           </Formik>
         </div>
       )}
-      {showLoading && <AwaitRoom role='owner' />}
+      {showLoading && <AwaitRoom role="owner" />}
     </>
   );
 };

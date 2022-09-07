@@ -51,16 +51,15 @@ export const JoinRoom = () => {
             //send Form data to server
             onSubmit={(values) => {
               //socket emit to joined Room
-              console.warn(values);
               socket.emit("user:join", values, (response) => {
                 console.log(response);
                 //validate response codes from server
                 if (response.code === 404) {
-                  console.warn("room does not exist");
+                  console.log("room does not exist");
                 } else if (response.code === 600) {
-                  console.warn("user already in room");
+                  console.log("user already in room");
                 } else if (response.code === 601) {
-                  console.warn("room fulled");
+                  console.log("room fulled");
                 } else {
                   //user joined to room
                   console.warn("user joined room");

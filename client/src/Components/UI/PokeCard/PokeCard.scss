@@ -1,0 +1,23 @@
+.card-container {
+  width: 150px;
+  height: 240px;
+  outline: solid 1px red;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .habilities-container {
+    outline: solid 1px red;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+
+    .hability-content{
+      display: grid;
+      grid-template-columns: auto auto;
+      grid-template-rows: auto auto;
+    }
+  }
+}
