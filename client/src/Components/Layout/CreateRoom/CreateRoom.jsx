@@ -10,8 +10,8 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import socket from "../../../WebSockets/WebSockets";
 //import icon to close modal
 import { AiOutlineCloseCircle } from "react-icons/ai";
-import { Loading } from "../../UI/awaitRoom/Loading";
 import { AwaitRoom } from "../../UI/awaitRoom/AwaitRoom";
+import UserContext from "../../../UserContext/UserContext";
 
 //return the component
 export const CreateRoom = () => {
@@ -19,6 +19,8 @@ export const CreateRoom = () => {
   const [showLoading, setShowLoading] = React.useState(false);
   const [roomId, setRoomId] = React.useState("");
 
+  const { user , changeData } = React.useContext(UserContext);
+  
   const handlerState = () => {
     setShowModal(!showModal);
   };
@@ -57,14 +59,12 @@ export const CreateRoom = () => {
                 //validate if the room was created
                 
                 if (response.code === 200) {
-                  //set the room id
-                  setRoomId(response.roomId);
+                  //set the new user data
+                  changeData(values.username, response.roomId);
                   //close primary modal      
                   setShowModal(false);
                   //if the room was created, show the loading component
                   setShowLoading(true);
-                  
-                  
                 }
               });
             }}
@@ -87,7 +87,7 @@ export const CreateRoom = () => {
           </Formik>
         </div>
       )}
-      {showLoading && <AwaitRoom RoomId={roomId} role='owner' />}
+      {showLoading && <AwaitRoom role='owner' />}
     </>
   );
 };

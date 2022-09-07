@@ -5,11 +5,18 @@ import socket from "../../../WebSockets/WebSockets";
 import { Loading } from "./Loading";
 //import stylesheet
 import "./AwaitRoom.scss";
+import UserContext from "../../../UserContext/UserContext";
 
 export const AwaitRoom = ({ roomId , role }) => {
   //state for count the players in the room
   const [players, setPlayers] = React.useState(0);
 
+  //use the user context
+  const { user } = React.useContext(UserContext);
+
+  React.useEffect(()=> {
+    console.log(user);
+  },[user])
 
   //effect for count in real time the players in the room
   React.useEffect(() => {
@@ -32,7 +39,7 @@ export const AwaitRoom = ({ roomId , role }) => {
               
             )
           }
-          
+          <h2>{user.room}</h2>
           <Loading />
           {
             //conditional render for show the button to start the game
@@ -48,6 +55,9 @@ export const AwaitRoom = ({ roomId , role }) => {
             ) : (
               <h2>Jugadores en sala... {players}</h2>
             )
+          }
+          {
+            //conditional render for await the owner to start the game
           }
           <Loading />
           <h2>Esperando al lider para empezar la partida</h2>

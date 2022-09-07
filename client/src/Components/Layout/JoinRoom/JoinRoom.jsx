@@ -1,6 +1,6 @@
 //import dependencies and reactHooks
 import React from "react";
-import { AwaitRoom } from '../../UI/awaitRoom/AwaitRoom'
+import { AwaitRoom } from "../../UI/awaitRoom/AwaitRoom";
 //import group icon
 import { GrGroup } from "react-icons/gr";
 //import stylesheet
@@ -16,7 +16,7 @@ import { AiOutlineCloseCircle } from "react-icons/ai";
 export const JoinRoom = () => {
   const [showModal, setShowModal] = React.useState(false);
 
-  const [ userJoined , setUserJoined ] = React.useState(false);
+  const [userJoined, setUserJoined] = React.useState(false);
 
   const handlerState = () => {
     setShowModal(!showModal);
@@ -53,11 +53,15 @@ export const JoinRoom = () => {
               //socket emit to joined Room
               console.warn(values);
               socket.emit("user:join", values, (response) => {
+                //validate response codes from server
                 if (response.code === 404) {
                   console.warn("room does not exist");
                 } else if (response.code === 600) {
                   console.warn("user already in room");
+                } else if (response.code === 601) {
+                  console.warn("room fulled");
                 } else {
+                  //user joined to room
                   console.warn("user joined room");
                   setUserJoined(true);
                 }
@@ -82,10 +86,8 @@ export const JoinRoom = () => {
             )}
           </Formik>
         </div>
-        
       )}
-      {userJoined && <AwaitRoom userJoined={userJoined} role='owner' />}
-      
+      {userJoined && <AwaitRoom userJoined={userJoined} role="owner" />}
     </>
   );
 };
