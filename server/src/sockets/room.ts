@@ -108,6 +108,7 @@ export const game = (io:Server):void =>{
                 //valid users room
                 const countUsers:number|null = await getUsers(data.idRoom);
                 if(!countUsers) return;
+                console.log(`Room: ${data.idRoom} -> Users:${countUsers}`);
                 const isValidate:boolean = isValidAddUsers(countUsers);
                 //if valid
                 if(!isValidate)return callback({msq:Room,...getResponse(601)})//Full Room
@@ -115,14 +116,17 @@ export const game = (io:Server):void =>{
                 //Save nameUser a la sala
                 const result:boolean|null|string = await addNameUser(data.idRoom,data.nameUser);
                 //validate
+                //Room not found
                 if(!result) return callback({
                     msq:Room,
                     ...getResponse(404)
                 });
+                //User exist
                 if(result === Exist)return callback({
                     mgg:User,
                     ...getResponse(600)
                 });
+                //All ok
                 callback({
                     ...getResponse(200)
                 });
