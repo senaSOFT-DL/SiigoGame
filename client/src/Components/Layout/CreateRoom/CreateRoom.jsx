@@ -17,9 +17,8 @@ import UserContext from "../../../UserContext/UserContext";
 export const CreateRoom = () => {
   const [showModal, setShowModal] = React.useState(false);
   const [showLoading, setShowLoading] = React.useState(false);
-  const [roomId, setRoomId] = React.useState("");
 
-  const { user , changeData } = React.useContext(UserContext);
+  const { changeData } = React.useContext(UserContext);
   
   const handlerState = () => {
     setShowModal(!showModal);

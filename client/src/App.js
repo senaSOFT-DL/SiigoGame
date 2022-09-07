@@ -1,5 +1,5 @@
 //import dependencies and libraries
-import React, { Suspense } from "react";
+import React from "react";
 //import Normalize.css to reset all styles
 import "./Styles/Normalize.css";
 //import userProvider to wrap the app
