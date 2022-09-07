@@ -169,7 +169,6 @@ export const game = (io:Server):void =>{
                 //Obtenmos las cartas
                 getCards();
             });
-
             //?Ready Game
             socket.on('ready', (idRoom:string) => {
                 socket.to(idRoom).emit('start',{msg:'started game'});
