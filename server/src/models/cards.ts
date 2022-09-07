@@ -8,7 +8,7 @@ export const addDataCardTemporaly = async (data:Array<Results>) => {
     for(let ele of data){
         resulDataTamporaly.push(ele);
     }
-    console.log('CANT: ',resulDataTamporaly.length);
+    console.log('CANT: ',resulDataTamporaly.find(ele => ele.name === 'bulbasaur' ));
 };
 export const getCards = async () => {
     return resulDataTamporaly.length;

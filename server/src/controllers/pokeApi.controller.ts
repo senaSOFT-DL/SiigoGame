@@ -1,7 +1,6 @@
-import { Response } from 'express';
 import { DataApi, Results } from '../interfaces/Cards';
 import axios from 'axios';
-import { addDataCardTemporaly } from '../models/cards';
+import {addDataTemporaly} from '../services/cards.service';
 
 let temporaly:Array<Results> = [];
 
@@ -20,21 +19,16 @@ export const getCards = async () => {
 		}).catch(err=>{
 			console.error(`ERROR: Consumo de API:: ${err}`);
 		});
+		//TODO - EL SOCKET ESTA SOBRECARGADO, HACE UN FILTRO Y TODO
 		// for(let ele of result){
 		//     console.log(`RESULT:: ${ele.name}`);
 		// }
 		// const [name,url] = result;
 		console.log(temporaly);
-		await addDataTemporaly();
+		await addDataTemporaly(temporaly);
 		// console.log(getCards());
 };
 //Obtenemos los datos de cada carta para asi hacer un fetch
-const getDataCards = (data:Array<Results>) => {
-
-};
-//Add cards
-const addDataTemporaly = async () => {
-	await addDataCardTemporaly(temporaly);
-	// const data = getCards();
-	// console.table(data);
+const getDatahabilitiesCards = (data:Array<Results>) => {
+	
 };
