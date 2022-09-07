@@ -2,7 +2,7 @@ export interface Socket {
     socketId:string;
 }
 
-export interface SocketJoin {
+export interface SocketJoinUser {
     idRoom:string;
     nameUser:string;
 }
