@@ -2,14 +2,20 @@
 import { Namespace, Server, Socket } from 'socket.io';
 import {sio} from './io';
 //Import interface
-import { Socket as DataSocket, SocketJoin } from '../interfaces/Socket';
+import { Socket as DataSocket, SocketJoinUser } from '../interfaces/Socket';
 import { DataRoom } from '../interfaces/Room';
 import { DataUser } from '../interfaces/User';
 //Import services
-import { createIdRoom, getUsers, isValidatedIdRoom, saveRoomService } from '../services/room.service';
+import { createIdRoom, isValidatedIdRoom, saveRoomService } from '../services/room.service';
+import { getUsers, isValidAddUsers } from '../services/user.service';
 import { getResponse } from '../services/getResponse.service';
 import { addNameUser } from '../services/user.service';
 //Import controllers
+//Import enums
+import {TypeRole} from '../types/enums';
+
+//Deconstruction
+const {Exist,Room,User} = TypeRole;
 
 export const game = (io:Server):void =>{
     //Create nameSpace
@@ -60,11 +66,11 @@ export const game = (io:Server):void =>{
                 //Save nameUser Room
                 const result:boolean|null|string = await addNameUser(data._idRoom, data._name);
                 if(!result)return callback({
-                    msg:'Room',
+                    msg:Room,
                     ...getResponse(404)
                 });
                 if(result === 'exist') return callback({
-                    msq:'User',
+                    msq:User,
                     ...getResponse(600)
                 });
                 if(result === true) return callback({
@@ -81,14 +87,14 @@ export const game = (io:Server):void =>{
                 //Validated idRoom
                 const result:boolean|null = await isValidatedIdRoom(idRoom);
                 if(!result)return callback({
-                    msg:'Room',
+                    msg:Room,
                     ...getResponse(404)
                 });
                 //Get number users
                 const resultUsers:number|null = await getUsers(idRoom);
                 //Validate
                 if(!resultUsers)return callback({
-                    msg:'Room',
+                    msg:Room,
                     ...getResponse(404)
                 })
                 console.log(`Room:${idRoom} - Users Room: ${resultUsers}`);
@@ -98,9 +104,28 @@ export const game = (io:Server):void =>{
                 });
             });
             //?user join
-            socket.on('user:join',async (data:SocketJoin)=>{
+            socket.on('user:join',async (data:SocketJoinUser, callback)=>{
+                //valid users room
+                const countUsers:number|null = await getUsers(data.idRoom);
+                if(!countUsers) return;
+                const isValidate:boolean = isValidAddUsers(countUsers);
+                //if valid
+                if(!isValidate)return callback({msq:Room,...getResponse(601)})//Full Room
+                //else
                 //Save nameUser a la sala
                 const result:boolean|null|string = await addNameUser(data.idRoom,data.nameUser);
+                //validate
+                if(!result) return callback({
+                    msq:Room,
+                    ...getResponse(404)
+                });
+                if(result === Exist)return callback({
+                    mgg:User,
+                    ...getResponse(600)
+                });
+                callback({
+                    ...getResponse(200)
+                });
                 //TODO-Unimos user to room 
                 socket.join(data.idRoom);
             });

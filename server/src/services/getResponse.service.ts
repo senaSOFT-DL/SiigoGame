@@ -9,7 +9,8 @@ const responses:ResponseMessage[] = [
 	//Server
 	{status:'Status: Invalid Response server', code:502},
 	//Create Codes
-	{status:'Status: User exist!', code:600}
+	{status:'Status: User exist!', code:600},
+	{status:'Status: Full Room', code:601},
 ];
 //Get codes
 export const getResponse = (code:number):ResponseMessage|undefined => {

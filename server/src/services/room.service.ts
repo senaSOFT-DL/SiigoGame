@@ -35,8 +35,3 @@ export const isValidatedIdRoom = async (idRoom:string):Promise<boolean|null> => 
 	//Compared id 
 	return await compareID(idRoom);
 };
-//Obtemos el numero de Jugadores de una sala
-export const getUsers = async (idRoom:string):Promise<number|null> => {
-	const resultUsers:number|null = await getUsersByIdRoom(idRoom);
-	return resultUsers;
-};

@@ -45,7 +45,7 @@ export const saveNameUser = async (idRoom:string,nameUser:string):Promise<boolea
 	//Get object by idRoom
 	const findRoom:DataRoom|undefined = Rooms.find(el => el._idRoom == idRoom);
 	//Validamos si obtenemos la sala
-	if(!findRoom)return null; //No encontrado
+	if(!findRoom)return null; //Sala No encontrada
 	//Search name and compared
 	const findNameUser:string|null|undefined = findRoom?._namesUsers?.find(ele => ele === nameUser);
 	//Validamos si el nombre se encuentra
