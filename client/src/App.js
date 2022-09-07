@@ -8,6 +8,7 @@ import "./Styles/Normalize.css";
 import { UserRoutes } from "./Routes/UserRoutes";
 import { UserProvider } from "./UserContext/UserContext";
 import { GameProvider } from "./GameContext/GameContext";
+import { RoomProvider } from "./roomContext/RoomContext";
 
 //return the component
 function App() {
@@ -16,9 +17,11 @@ function App() {
 
   return (
     <UserProvider>
-      <GameProvider>
-        <UserRoutes />
-      </GameProvider>
+      <RoomProvider>
+        <GameProvider>
+          <UserRoutes />
+        </GameProvider>
+      </RoomProvider>
     </UserProvider>
   );
 }

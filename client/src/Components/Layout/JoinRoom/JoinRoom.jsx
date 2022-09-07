@@ -11,11 +11,13 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import socket from "../../../WebSockets/WebSockets";
 //import icon to close modal
 import { AiOutlineCloseCircle } from "react-icons/ai";
+import RoomContext from "../../../roomContext/RoomContext";
 
 //return the component
 export const JoinRoom = () => {
   const [showModal, setShowModal] = React.useState(false);
-  const [ idRoom , setIdRoom ] = React.useState("");
+
+  const { changeData} = React.useContext(RoomContext);
 
   const [userJoined, setUserJoined] = React.useState(false);
 
@@ -50,10 +52,10 @@ export const JoinRoom = () => {
               return errors;
             }}
             //send Form data to server
-            onSubmit={(values) => {
+            onSubmit={ async (values) => {
               //socket emit to joined Room
-              setIdRoom(values.room);
-              socket.emit("user:join", values, (response) => {
+              changeData(values.room);
+              await socket.emit("user:join", values, (response) => {
                 console.log(response);
                 //validate response codes from server
                 if (response.code === 404) {
@@ -91,7 +93,7 @@ export const JoinRoom = () => {
           </Formik>
         </div>
       )}
-      {userJoined && <AwaitRoom role="player" roomId={idRoom} />}
+      {userJoined && <AwaitRoom role="player" />}
     </>
   );
 };

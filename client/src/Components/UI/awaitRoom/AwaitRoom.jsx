@@ -1,4 +1,4 @@
-import React, { useEffect} from "react";
+import React, { useEffect } from "react";
 //import socket for conect to server
 import socket from "../../../WebSockets/WebSockets";
 //import loading animated component
@@ -7,6 +7,7 @@ import { Loading } from "./Loading";
 import "./AwaitRoom.scss";
 import UserContext from "../../../UserContext/UserContext";
 import { useNavigate } from "react-router-dom";
+import RoomContext from "../../../roomContext/RoomContext";
 
 export const AwaitRoom = ({ role, roomId }) => {
   //navigate to game room
@@ -15,37 +16,35 @@ export const AwaitRoom = ({ role, roomId }) => {
   const [players, setPlayers] = React.useState(2);
   //use the user context
   const { user } = React.useContext(UserContext);
-
+  const { room } = React.useContext(RoomContext);
+  
   React.useEffect(() => {
     console.log(user);
-  }, [user]);
+    console.log(room);
+  }, [user ,room]);
 
   //effect for count in real time the players in the room
   React.useEffect(() => {
+    console.log(room);  
     socket.on("players", (data, response) => {
-      socket.emit("users:count", roomId, (response) => {
+      socket.emit("users:count", room, (response) => {
         //validate players
         console.log(response);
       });
     });
-  },[socket]);
-
+  }, [socket]);
 
   const sendToGame = () => {
-    let message = "You are ready to play";
-    socket.to(roomId).socket.emit("ready", message, (response) => {
+    socket.emit('ready',( user.room , (response) => {
       console.log(response);
-    });
+    }))
   };
 
-
-  useEffect(()=> {
-    socket.on("ready",(data) => {
+  useEffect(() => {
+    socket.on("start", (data) => {
       console.log(data);
-    })
-  },[socket])
-
-  
+    });
+  }, [socket]);
 
   return (
     <div className="await-overlay">
@@ -64,7 +63,7 @@ export const AwaitRoom = ({ role, roomId }) => {
           {
             //conditional render for show the button to start the game
             players >= 2 ? (
-              <button onClick={() => sendToGame()}>Empezar partida</button>
+              <button onClick={ sendToGame}>Empezar partida</button>
             ) : null
           }
         </div>
