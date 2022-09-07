@@ -46,17 +46,17 @@ export const PokeCard = () => {
       <div className="habilities-container">
         <div className="hability-content">
           <p>{stat1}</p>
-          <div className="hability-content">
-            <p>{stat2}</p>
-          </div>
-          <div className="hability-content">
-            <p>{stat3}</p>
-          </div>
-          <div className="hability-content">
-            <p>{stat4}</p>
-          </div>
         </div>
-      </div>{" "}
+        <div className="hability-content">
+          <p>{stat2}</p>
+        </div>
+        <div className="hability-content">
+          <p>{stat3}</p>
+        </div>
+        <div className="hability-content">
+          <p>{stat4}</p>
+        </div>
+      </div>
       <div className="type-container">
         <p>{type}</p>
       </div>
