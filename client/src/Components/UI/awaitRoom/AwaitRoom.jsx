@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect} from "react";
 //import socket for conect to server
 import socket from "../../../WebSockets/WebSockets";
 //import loading animated component
@@ -13,10 +13,6 @@ export const AwaitRoom = ({ role, roomId }) => {
   const navigate = useNavigate();
   //state for count the players in the room
   const [players, setPlayers] = React.useState(2);
-
-  React.useEffect(() => {
-    console.log(players);
-  }, [players, socket]);
   //use the user context
   const { user } = React.useContext(UserContext);
 
@@ -32,23 +28,24 @@ export const AwaitRoom = ({ role, roomId }) => {
         console.log(response);
       });
     });
-  }, [socket]);
+  },[socket]);
+
 
   const sendToGame = () => {
     let message = "You are ready to play";
-    socket.emit("ready", message, (response) => {
+    socket.to(roomId).socket.emit("ready", message, (response) => {
       console.log(response);
     });
   };
 
-  React.useEffect(() => {
-    socket.on("send:game", (message, callback) => {
-      callback({
-        status: 200,
-      });
-      console.log(message);
-    });
-  }, [socket]);
+
+  useEffect(()=> {
+    socket.on("ready",(data) => {
+      console.log(data);
+    })
+  },[socket])
+
+  
 
   return (
     <div className="await-overlay">
