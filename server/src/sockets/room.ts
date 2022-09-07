@@ -170,7 +170,11 @@ export const game = (io:Server):void =>{
                 getCards();
             });
             //?Ready Game
-            socket.on('ready', (idRoom:string) => {
+            socket.on('ready', (idRoom:string, callback) => {
+                callback({
+                    ...getResponse(200)
+                })
+                console.log('STARTED GAME');
                 socket.to(idRoom).emit('start',{msg:'started game'});
             });
         });
