@@ -2,7 +2,7 @@ import app from './app';
 import http from 'http';
 import dotenv from 'dotenv';
 //Read .env
-dotenv.config({path:'./env'});
+dotenv.config({path:'./.env'});
 //Importamos sockets
 import { sio } from './sockets/io';
 

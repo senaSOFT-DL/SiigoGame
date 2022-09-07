@@ -3,6 +3,7 @@ import {v4} from 'uuid';
 import { DataRoom } from '../interfaces/Room';
 import { compareID, getRooms, getUsersByIdRoom, saveRoom } from '../models/data';
 import { Room } from '../models/entities/Room';
+import { saveIdroomRedis } from '../models/nosql/redis';
 
 export const createIdRoom = ():string => {
 	//Create id room hexa
@@ -23,6 +24,7 @@ export const saveRoomService = async (data:DataRoom):Promise<boolean|string> => 
 	try {
 		//SAVE room -> Rooms 
 		await saveRoom(room);
+		await saveIdroomRedis(data._idRoom,_owner);
 	} catch (error) {
 		console.error(`ERROR:ADD Room to Rooms`);
 		return false;

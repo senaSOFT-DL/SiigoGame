@@ -1,7 +1,7 @@
 //Import cli-redis
 import { redisClient } from '../../config/connection/redis/connect';
 
-export const saveIdroom = async (idRoom:string) => {
+export const saveIdroomRedis = async (idRoom:string,owner:string) => {
 	//Buscamos si el Dato existe
 	const getData:string|null = await redisClient.get(idRoom);
 	console.log(`Dato obtenido redis: ${getData}`);
@@ -10,7 +10,7 @@ export const saveIdroom = async (idRoom:string) => {
 	//No existe el id 
 	try {
 		const assign : string | null = await redisClient.set(idRoom, JSON.stringify({
-			idRoom
+			idRoom:owner
 		}));
 		console.log('Code recover: ',assign);
 	} catch (error) {

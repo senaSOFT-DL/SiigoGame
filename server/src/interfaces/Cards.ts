@@ -13,3 +13,15 @@ interface Statistics{
     Defense:string;
     speed:string;
 }
+
+export interface DataApi {
+    count:number;
+    next:string;
+    previous:null;
+results:Array<Results>;
+}
+
+export interface Results {
+    name:string;
+    url:string;
+}
