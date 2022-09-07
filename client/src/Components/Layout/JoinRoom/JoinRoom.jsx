@@ -89,7 +89,7 @@ export const JoinRoom = () => {
           </Formik>
         </div>
       )}
-      {userJoined && <AwaitRoom userJoined={userJoined} role="owner" />}
+      {userJoined && <AwaitRoom role="player" />}
     </>
   );
 };

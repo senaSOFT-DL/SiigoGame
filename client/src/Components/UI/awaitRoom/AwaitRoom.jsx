@@ -7,20 +7,21 @@ import { Loading } from "./Loading";
 import "./AwaitRoom.scss";
 import UserContext from "../../../UserContext/UserContext";
 
-export const AwaitRoom = ({ roomId , role }) => {
+export const AwaitRoom = ({ roomId, role }) => {
   //state for count the players in the room
   const [players, setPlayers] = React.useState(0);
 
   //use the user context
   const { user } = React.useContext(UserContext);
 
-  React.useEffect(()=> {
+  React.useEffect(() => {
     console.log(user);
-  },[user])
+  }, [user]);
 
   //effect for count in real time the players in the room
   React.useEffect(() => {
     socket.emit("users:count", roomId, (response) => {
+      console.log(response);
       //validate players
       response.status > 1 ? setPlayers(response.status) : setPlayers(1);
     });
@@ -28,7 +29,7 @@ export const AwaitRoom = ({ roomId , role }) => {
 
   return (
     <div className="await-overlay">
-      {role === "owner" ? (
+      {role === "owner" && (
         <div className="awaitroom-content">
           {
             //conditional render for show the players in the room
@@ -36,7 +37,6 @@ export const AwaitRoom = ({ roomId , role }) => {
               <h2>Esperando jugadores...</h2>
             ) : (
               <h2>Jugadores en sala... {players}</h2>
-              
             )
           }
           <h2>{user.room}</h2>
@@ -46,7 +46,8 @@ export const AwaitRoom = ({ roomId , role }) => {
             players >= 2 ? <button>Empezar partida</button> : null
           }
         </div>
-      ) : (
+      )}
+      {role === "player" && (
         <div className="awaitroom-content">
           {
             //conditional render for show the players in the room
@@ -63,6 +64,7 @@ export const AwaitRoom = ({ roomId , role }) => {
           <h2>Esperando al lider para empezar la partida</h2>
         </div>
       )}
+      )
     </div>
   );
 };

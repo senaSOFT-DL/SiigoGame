@@ -34,7 +34,7 @@ export const CreateRoom = () => {
         <div className="createroom-container">
           <Formik
             initialValues={{
-              _owner: "",
+              username: "",
             }}
             validate={(values) => {
               let errors = {};

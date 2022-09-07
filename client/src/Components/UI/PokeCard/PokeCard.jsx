@@ -1,17 +1,17 @@
 //import stylesheet
 import axios from "axios";
 import React from "react";
-import './PokeCard.scss';
+import "./PokeCard.scss";
 
 //create a card render component
 export const PokeCard = () => {
   const [name, setName] = React.useState("");
   const [img, setImg] = React.useState("");
-  const [ stat1 , setStat1 ] = React.useState("");
-  const [ stat2 , setStat2 ] = React.useState("");
-  const [ stat3 , setStat3 ] = React.useState("");
-  const [ stat4 , setStat4 ] = React.useState("");
-  const [ type , setType ] = React.useState("");
+  const [stat1, setStat1] = React.useState("");
+  const [stat2, setStat2] = React.useState("");
+  const [stat3, setStat3] = React.useState("");
+  const [stat4, setStat4] = React.useState("");
+  const [type, setType] = React.useState("");
 
   const getdata = () => {
     axios
@@ -56,9 +56,9 @@ export const PokeCard = () => {
             <p>{stat4}</p>
           </div>
         </div>
-        <div className="type-container">
-          <p>{type}</p>
-        </div>
+      </div>{" "}
+      <div className="type-container">
+        <p>{type}</p>
       </div>
     </div>
   );
