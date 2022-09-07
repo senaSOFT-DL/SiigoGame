@@ -122,18 +122,16 @@ export const game = (io:Server):void =>{
                 const nameUser = data.username
                 //Validate idRoom
                 const codeValid:boolean|null = await isValidatedIdRoom(idRoom);
-                console.log('RESPONSE:',codeValid);
                 if(!codeValid){
-                    console.log(`IdRoom no valido: ${idRoom}`);
+                    console.log(`El IdRoom ${idRoom} NO es valido`);
                     return callback({
                         msq:Room,
                         ...getResponse(404)
                     })
                 };
-                console.log(`El IdRoom es valido ${idRoom}`);
+                console.log(`El IdRoom ${idRoom} es valido`);
                 //valid users room
                 const countUsers:number|null = await getUsers(idRoom);
-                console.log('Users: ',countUsers);
                 if(countUsers === null) return;//No hay users
                 console.log(`Room: ${idRoom} -> Users:${countUsers}`);
                 const isValidate:boolean = isValidAddUsers(countUsers);
