@@ -6,14 +6,17 @@ import { Loading } from "./Loading";
 //import stylesheet
 import "./AwaitRoom.scss";
 import UserContext from "../../../UserContext/UserContext";
+import { useNavigate } from "react-router-dom";
 
-export const AwaitRoom = ({ role, roomId}) => {
+export const AwaitRoom = ({ role, roomId }) => {
+  //navigate to game room
+  const navigate = useNavigate();
   //state for count the players in the room
-  const [players, setPlayers] = React.useState(0);
+  const [players, setPlayers] = React.useState(2);
 
-  React.useEffect(() =>{
+  React.useEffect(() => {
     console.log(players);
-  },[players,socket])
+  }, [players, socket]);
   //use the user context
   const { user } = React.useContext(UserContext);
 
@@ -23,13 +26,29 @@ export const AwaitRoom = ({ role, roomId}) => {
 
   //effect for count in real time the players in the room
   React.useEffect(() => {
-    socket.emit("users:count",roomId, (response) => {
-      
-      //validate players
-      console.log(response);
-      response.status > 1 ? setPlayers(response.status) : setPlayers(1);
+    socket.on("players", (data, response) => {
+      socket.emit("users:count", roomId, (response) => {
+        //validate players
+        console.log(response);
+      });
     });
-  }, [socket ]);
+  }, [socket]);
+
+  const sendToGame = () => {
+    let message = "You are ready to play";
+    socket.emit("ready", message, (response) => {
+      console.log(response);
+    });
+  };
+
+  React.useEffect(() => {
+    socket.on("send:game", (message, callback) => {
+      callback({
+        status: 200,
+      });
+      console.log(message);
+    });
+  }, [socket]);
 
   return (
     <div className="await-overlay">
@@ -47,7 +66,9 @@ export const AwaitRoom = ({ role, roomId}) => {
           <Loading />
           {
             //conditional render for show the button to start the game
-            players >= 2 ? <button>Empezar partida</button> : null
+            players >= 2 ? (
+              <button onClick={() => sendToGame()}>Empezar partida</button>
+            ) : null
           }
         </div>
       )}
