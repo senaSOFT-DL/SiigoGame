@@ -13,6 +13,8 @@ import { addNameUser } from '../services/user.service';
 //Import controllers
 //Import enums
 import {TypeRole} from '../types/enums';
+import { getCards } from '../controllers/pokeApi.controller';
+import { getUsersByIdRoom } from '../models/data';
 
 //Deconstruction
 const {Exist,Room,User} = TypeRole;
@@ -28,6 +30,15 @@ export const game = (io:Server):void =>{
                 socketId: socket.id
             }
             console.table(data);
+
+            //?Cantidad de usurarios
+            const emitUsers = async (idRoom:string):Promise<void> => {
+                const result = await getUsersByIdRoom(idRoom);
+                //CANTIDAD DE USUARIOS
+                console.log('USERS: ',result);
+                room.emit('players', result)
+            }
+
             //Disconected
             socket.on('disconnect', ()=>{
                 console.log(`Disconnected: ${socket.id}`);
@@ -106,12 +117,12 @@ export const game = (io:Server):void =>{
             });
             //?user join
             socket.on('user:join',async (data:SocketJoinUser, callback)=>{
+                console.log('--USER|JOIN--');
                 const idRoom:string = data.room;
                 const nameUser = data.username
-                console.log(data);
-                
                 //Validate idRoom
                 const codeValid:boolean|null = await isValidatedIdRoom(idRoom);
+                console.log('RESPONSE:',codeValid);
                 if(!codeValid){
                     console.log(`IdRoom no valido: ${idRoom}`);
                     return callback({
@@ -152,7 +163,13 @@ export const game = (io:Server):void =>{
                     ...getResponse(200)
                 });
                 socket.join(data.room);
+                await emitUsers(idRoom);
                 //TODO-Unimos user to room 
+            });
+            //?Start Game
+            socket.on('game:start',(callback)=>{
+                //Obtenmos las cartas
+                getCards();
             });
         });
 };

@@ -1,7 +1,7 @@
 //Import hex-generator
 import {v4} from 'uuid';
 import { DataRoom } from '../interfaces/Room';
-import { compareID, getUsersByIdRoom, saveRoom } from '../models/data';
+import { compareID, getRooms, getUsersByIdRoom, saveRoom } from '../models/data';
 import { Room } from '../models/entities/Room';
 
 export const createIdRoom = ():string => {
@@ -33,5 +33,12 @@ export const saveRoomService = async (data:DataRoom):Promise<boolean|string> => 
 //Validamos el id de la sala
 export const isValidatedIdRoom = async (idRoom:string):Promise<boolean|null> => {
 	//Compared id 
-	return await compareID(idRoom);
+	const result=await compareID(idRoom);
+	console.log('RESULT:',result);
+	return result;
+};
+
+//Get all Rooms
+const getAllRooms = ():Array<DataRoom> => {
+	return getRooms();
 };
