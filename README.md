@@ -7,4 +7,6 @@ desarrollado con las tecnologias de ReactJS , sockets client , Sass del lado del
 Prueba desarrollada por Andres Felipe Rojas y Sebastian Henao
 Categoria: desarrollo libre
 
+docs del proyecto : https://stupendous-breath-32c.notion.site/SiigoGame-6debb52e40a843db9bac84d7fbaa5655
+
 ### Regional: Quindio
