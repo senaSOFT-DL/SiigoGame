@@ -206,7 +206,7 @@ export const game = (io:Server):void =>{
                     ...getResponse(200)
                 })
                 console.log('STARTED GAME');
-                socket.to(idRoom).emit('data:card',{users:dataGame});
+                socket.emit('data:card',{users:dataGame});
                 socket.to(idRoom).emit('start',{msg:'started game'});
             });
         });
