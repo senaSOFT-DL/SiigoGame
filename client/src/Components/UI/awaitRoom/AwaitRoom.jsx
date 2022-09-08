@@ -54,11 +54,9 @@ export const AwaitRoom = ({ role }) => {
         <div className="awaitroom-content">
           {
             //conditional render for show the players in the room
-            players === 1 ? (
+            players === 1 && 
               <h2>Waiting players...</h2>
-            ) : (
-              <h2>Players in room: {players}</h2>
-            )
+            
           }
           <div className="code-room">
             <h2>Room code</h2>
@@ -66,12 +64,8 @@ export const AwaitRoom = ({ role }) => {
           </div>
 
           <Loading />
-          {
-            //conditional render for show the button to start the game
-            players >= 2 ? (
-              <button onClick={sendToGame}>Start game</button>
-            ) : null
-          }
+
+          <button onClick={sendToGame}>Start game</button>
         </div>
       )}
       {role === "player" && (
