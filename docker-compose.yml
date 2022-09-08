@@ -1,6 +1,6 @@
 version: '3'
 volumes:
-    redisSiigoGame:
+    redis_siigo_game:
 
 services:
     redis:
@@ -8,9 +8,9 @@ services:
         expose:
             - '6379'
         volumes:
-            -volumes:
-            - redisSiigoGame:/var/lib/redis
-        container_name: siigoGame_redis
+            volumes:
+                - redis_siigo_game:/var/lib/redis
+        container_name: siigogame_redis
         command: >
             --requirepass 0606
     app:
