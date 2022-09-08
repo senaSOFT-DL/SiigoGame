@@ -27,25 +27,18 @@ export const UserCards = () => {
     });
   };
 
-  useEffect(() => {
-    //get the user cards
-    getData();
-  }, []);
 
   //provisional data to test the component
-  const getData = async () => {
-    await axios
-      .get("https://pokeapi.co/api/v2/pokemon/6")
-      .then((response) => {
-        return setData(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+ 
 
   return(
   <div className="user-cards">
-    <PokeCard data={data} />
+    <PokeCard url={'https://pokeapi.co/api/v2/pokemon/6'} />
+    <PokeCard url={'https://pokeapi.co/api/v2/pokemon/7'} />
+    <PokeCard url={'https://pokeapi.co/api/v2/pokemon/8'} />
+    <PokeCard url={'https://pokeapi.co/api/v2/pokemon/9'} />
+    <PokeCard url={'https://pokeapi.co/api/v2/pokemon/22'} />
+    <PokeCard url={'https://pokeapi.co/api/v2/pokemon/33'} />
+    <PokeCard url={'https://pokeapi.co/api/v2/pokemon/44'} />
   </div>);
 };

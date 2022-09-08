@@ -4,7 +4,7 @@ import React from "react";
 import "./PokeCard.scss";
 
 //create a card render component
-export const PokeCard = ({ url , className }) => {
+export const PokeCard = ({ url }) => {
   const [name, setName] = React.useState("");
   const [img, setImg] = React.useState("");
   const [stat1, setStat1] = React.useState("");
@@ -19,7 +19,7 @@ export const PokeCard = ({ url , className }) => {
 
   const getdata = () => {
     axios
-      .get("https://pokeapi.co/api/v2/pokemon/ditto")
+      .get(url)
       .then((response) => {
         console.log(response.data);
         setName(response.data.name);
