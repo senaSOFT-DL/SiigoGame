@@ -106,37 +106,52 @@ export const getUsersName = async (idRoom:string):Promise<Array<string|null>|und
 	const getUserd:Array<string|null> = room._namesUsers;
 	return getUserd;
 } 
-export const joinDataGamen =async (idRoom:string,cards:Array<Card>,users:Array<string>):Promise<Array<DataGameRoom>> => {
+export const joinDataGamen =async (idRoom:string,cards:Array<Card>,users:Array<string|null>):Promise<Array<DataGameRoom>|null> => {
 	const cardsAll:Array<Card> = cards;
+	const usernames:Array<string> = [];
 	const userLength:number = users.length;
 	console.log('USERS-LENGTH:: ',userLength);
-	//REPARTRIR
+	for(let ele of users){
+		if(!ele)return null;
+		console.log('ELE: ',ele);
+		usernames.push(ele);
+	}
+	//Dividimos para saber cuntas tocan
 	const cantiCardsUser:number = cards.length / userLength;
 	console.log(cantiCardsUser);
+	
+	//REPARTRIR
 	//Validate si son 2 usuarios
 	if(userLength === 2){
 		const cards1:Array<Card> = [];
 		const cards2:Array<Card> = [];
 		for (let i = 0; i < 15; i++) {
-			cards1.push(cards[i]);
+			//ADD
+			cards1.push(cardsAll[i]);
+			console.log(cardsAll[i]);
+			//DEL
 			cards.splice(i,1);
 		};
-		for (let index = 0; index < 15; index++) {
-			
-			cards2.push(cards[index]);
+		for (let i = 0; i < 16; i++) {
+			//ADD
+			cards2.push(cardsAll[i]);
+			//DEL
+			cards.splice(i,1);
 		}
+		console.group('LENGTH card add:');
 		console.log(cards1.length);
 		console.log(cards2.length);
+		console.groupEnd();
 		//Create object
 		const user1:DataGameRoom = {
 			idRoom:idRoom,
-			username:'',
+			username:usernames[0],
 			cards:cards1
 			
 		}
 		const user2:DataGameRoom = {
 			idRoom:idRoom,
-			username:'',
+			username:usernames[1],
 			cards:cards2
 			
 		}
@@ -146,6 +161,51 @@ export const joinDataGamen =async (idRoom:string,cards:Array<Card>,users:Array<s
 	}
 	//10 cards c/u
 	if(userLength ===3){
+		const cards1:Array<Card> = [];
+		const cards2:Array<Card> = [];
+		const cards3:Array<Card> = [];
+		for (let i = 0; i < 9; i++) {
+			cards1.push(cardsAll[i]);
+			cards.splice(i,1);
+		};
+		for (let i = 0; i < 9; i++) {
+			//ADD
+			cards2.push(cardsAll[i]);
+			//DEL
+			cards.splice(i,1);
+		}
+		for (let i = 0; i < 9; i++) {
+			//ADD
+			cards3.push(cardsAll[i]);
+			//DEL
+			cards.splice(i,1);
+
+		}
+		console.log(cards1.length);
+		console.log(cards2.length);
+		console.log(cards3.length);
+		//Create object
+		const user1:DataGameRoom = {
+			idRoom:idRoom,
+			username:usernames[0],
+			cards:cards1
+			
+		}
+		const user2:DataGameRoom = {
+			idRoom:idRoom,
+			username:usernames[1],
+			cards:cards2
+			
+		}
+		const user3:DataGameRoom = {
+			idRoom:idRoom,
+			username:usernames[2],
+			cards:cards2
+			
+		}
+		roomDataAll.push(user1);
+		roomDataAll.push(user2);
+		roomDataAll.push(user3);
 
 	}
 	return roomDataAll;

@@ -26,7 +26,7 @@ export const createCard = async(ids:Array<Array<string>>,name:string, url:string
 	// console.log(hp);
 	//Create card
 	const card = new Card('1A',name,url,0,0,0,0);
-	console.log('CARD:: ',card);
+	// console.log('CARD:: ',card);
 	return card;
 };
 //Obtenemos las cartas

@@ -3,7 +3,7 @@ import { Namespace, Server, Socket } from 'socket.io';
 import {sio} from './io';
 //Import interface
 import { Socket as DataSocket, SocketJoinUser } from '../interfaces/Socket';
-import { DataRoom } from '../interfaces/Room';
+import { DataGameRoom, DataRoom } from '../interfaces/Room';
 import { DataUser } from '../interfaces/User';
 //Import services
 import { createIdRoom, getUserdByIdRoom, isValidatedIdRoom, saveRoomService } from '../services/room.service';
@@ -196,17 +196,17 @@ export const game = (io:Server):void =>{
                 //OBTENGO numero de users
                 const users:Array<string|null>|null = await getUserdByIdRoom(idRoom);
                 if(!users)return;
-                console.log('VALIDATE ARRAY');
-                if(typeof users != 'string')return;//EL ARRAY NO ES STRING
+                console.log('VALIDATE ARRAY', typeof users);
+                if(typeof users != 'object')return;//EL ARRAY NO ES STRING
                 console.log('PASS VALIDATE');
                 //Pasamos los datos a construir
-                const dataGame = await joinDataGamen(idRoom,cards,users);
+                const dataGame:Array<DataGameRoom>|null = await joinDataGamen(idRoom,cards,users);
                 console.log('DATAGAME:: ',dataGame);
                 callback({
-                    user:dataGame,
                     ...getResponse(200)
                 })
                 console.log('STARTED GAME');
+                socket.to(idRoom).emit('data:card',{users:dataGame});
                 socket.to(idRoom).emit('start',{msg:'started game'});
             });
         });
