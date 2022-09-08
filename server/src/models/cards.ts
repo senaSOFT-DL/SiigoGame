@@ -1,7 +1,6 @@
 import { Results, Stats } from '../interfaces/Cards';
 import { createCard } from '../services/cards.service';
 import { Card } from './entities/Card';
-//!CAMBIO
 const resulDataTamporaly:Array<Results> = [];
 //DATA STATS CARD
 const stats:Array<Stats> = [] ;
@@ -17,12 +16,10 @@ const ids:Array<Array<string>> = [
 
 export const addDataCardTemporaly = async (data:Array<Results>) => {
     //Agregamos
-    //!CAMBIOO
     for(let ele of data){
         resulDataTamporaly.push(ele);
     }
 };
-//!CAMBIO
 //Numero de cartas obtenidos temporales
 export const getCountCart = async () => {
     return resulDataTamporaly.length;
@@ -36,9 +33,10 @@ export const addStats = (data:Stats) => {
     stats.push(data);
 };
 //MOstrasmos los stats de las cartas
-export const lengthStats = async () => {
+export const lengthStats = async ():Promise<Array<Card>> => {
     console.log('STATS: ',stats.length);
     await joinDataCard(resulDataTamporaly,stats);
+    return cards;
 };
 //UNIR LOS DATOS
 export const joinDataCard = async (princiData:Array<Results>, stats:Array<Stats>) => {

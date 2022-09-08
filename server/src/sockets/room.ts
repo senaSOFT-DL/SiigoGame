@@ -14,9 +14,10 @@ import { addNameUser } from '../services/user.service';
 //Import enums
 import {TypeRole} from '../types/enums';
 import { getCards, getDatahabilitiesCards } from '../controllers/pokeApi.controller';
-import { getUsersByIdRoom } from '../models/data';
+import { getUsersByIdRoom, joinDataGamen } from '../models/data';
 import { getCardsTempo } from '../models/cards';
 import { Results } from '../interfaces/Cards';
+import { Card } from '../models/entities/Card';
 
 //Deconstruction
 const {Exist,Room,User} = TypeRole;
@@ -181,18 +182,28 @@ export const game = (io:Server):void =>{
             });
             //?Ready Game
             socket.on('ready', async (idRoom:string, callback) => {
-                //!CAMBIO
+                //Centinela
+                let cards:Array<Card>;
                 try {
                     //Obtenemos cartas con habilidades
                     //OBTENEMOS CARTAS TEMPORALES
                     const cardsTempo:Array<Results> = await getCardsTempo();
-                    await getDatahabilitiesCards(cardsTempo);
+                    //OBTENEMOS LAS CARTAS CON CREADAS
+                    cards = await getDatahabilitiesCards(cardsTempo);
                 } catch (error) {
                     throw new Error(`ERROR: get Data Carts TEMPO:: ${error} `);
                 }
-                const users = await getUserdByIdRoom(idRoom);
+                //OBTENGO numero de users
+                const users:Array<string|null>|null = await getUserdByIdRoom(idRoom);
+                if(!users)return;
+                console.log('VALIDATE ARRAY');
+                if(typeof users != 'string')return;//EL ARRAY NO ES STRING
+                console.log('PASS VALIDATE');
+                //Pasamos los datos a construir
+                const dataGame = await joinDataGamen(idRoom,cards,users);
+                console.log('DATAGAME:: ',dataGame);
                 callback({
-                    user:users,
+                    user:dataGame,
                     ...getResponse(200)
                 })
                 console.log('STARTED GAME');

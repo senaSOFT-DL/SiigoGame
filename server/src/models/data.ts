@@ -1,5 +1,6 @@
-import { DataRoom } from "../interfaces/Room";
-import { DataUser } from "../interfaces/User";
+import { DataGameRoom, DataRoom } from "../interfaces/Room";
+import { DataUser, User } from "../interfaces/User";
+import { Card } from "./entities/Card";
 
 //Rooms 
 const Rooms:Array<DataRoom> = [
@@ -24,6 +25,8 @@ const Users:Array<DataUser> = [
 		_cards:[]
 	},
 ];
+//Estructura para almacenar los datos mientras la partida
+const roomDataAll:Array<DataGameRoom> = [];
 
 
 //Methos 
@@ -96,7 +99,6 @@ export const getUsersByIdRoom = async (idRoom:string):Promise<number|null> => {
 export const getRooms = ():Array<DataRoom> => {
 	return Rooms;
 }
-//!CAMBIO
 export const getUsersName = async (idRoom:string):Promise<Array<string|null>|undefined> => {
 	const room:DataRoom|undefined = await getRoomById(idRoom);
 	//NO escontro la sala
@@ -104,3 +106,47 @@ export const getUsersName = async (idRoom:string):Promise<Array<string|null>|und
 	const getUserd:Array<string|null> = room._namesUsers;
 	return getUserd;
 } 
+export const joinDataGamen =async (idRoom:string,cards:Array<Card>,users:Array<string>):Promise<Array<DataGameRoom>> => {
+	const cardsAll:Array<Card> = cards;
+	const userLength:number = users.length;
+	console.log('USERS-LENGTH:: ',userLength);
+	//REPARTRIR
+	const cantiCardsUser:number = cards.length / userLength;
+	console.log(cantiCardsUser);
+	//Validate si son 2 usuarios
+	if(userLength === 2){
+		const cards1:Array<Card> = [];
+		const cards2:Array<Card> = [];
+		for (let i = 0; i < 15; i++) {
+			cards1.push(cards[i]);
+			cards.splice(i,1);
+		};
+		for (let index = 0; index < 15; index++) {
+			
+			cards2.push(cards[index]);
+		}
+		console.log(cards1.length);
+		console.log(cards2.length);
+		//Create object
+		const user1:DataGameRoom = {
+			idRoom:idRoom,
+			username:'',
+			cards:cards1
+			
+		}
+		const user2:DataGameRoom = {
+			idRoom:idRoom,
+			username:'',
+			cards:cards2
+			
+		}
+		roomDataAll.push(user1);
+		roomDataAll.push(user2);
+		
+	}
+	//10 cards c/u
+	if(userLength ===3){
+
+	}
+	return roomDataAll;
+}

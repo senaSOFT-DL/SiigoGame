@@ -58,39 +58,10 @@ const x = [
 //Ontenemos los usuaios de una sala
 export const getUserdByIdRoom =async (idRoom:string) => {
 	let datausers:Array<User>;
-
 	const users:Array<string|null>|undefined = await getUsersName(idRoom);
 	console.log('USERS:: ',users);
-	if(users === null && users===undefined)return;//USERS null
-	if(!users)return;
-	const cards:Array<Card> = await getAllCards();
-	const userLength:number = users.length;
-	console.log('CARDS:: ',userLength);
-	//REPARTRIR
-	const cantiCardsUser:number = cards.length / userLength;
-	console.log(cantiCardsUser);
-	//Validate
-	if(userLength === 2){
-		const cards1:Array<Card> = [];
-		const cards2:Array<Card> = [];
-		for (let i = 0; i < 16; i++) {
-			cards1.push(cards[i]);
-			cards.splice(i,1);
-		};
-		for (let index = 0; index < 16; index++) {
-			
-			cards2.push(cards[index]);
-		}
-		console.log(cards1.length);
-		console.log(cards1.length);
-		//Create object
-		// const data:User = {
-		// 	_name:users[0],
-		// }
-		
-	}
+	// if(users === null && users===undefined)return;//USERS null
+	if(!users)return null;//No hay usuarios
 
-	
-	
 	return users;
-};
+}; 

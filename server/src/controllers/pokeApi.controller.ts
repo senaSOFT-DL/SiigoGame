@@ -2,6 +2,7 @@ import { DataApi, Results, Stats } from '../interfaces/Cards';
 import axios from 'axios';
 import {addDataTemporaly} from '../services/cards.service';
 import { addStats, joinDataCard, lengthStats } from '../models/cards';
+import { Card } from '../models/entities/Card';
 
 let temporaly:Array<Results> = [];
 
@@ -20,14 +21,12 @@ export const getCards = async () => {
 		}).catch(err=>{
 			console.error(`ERROR: Consumo de API:: ${err}`);
 		});
-		//!CAMBIO
 		console.log(temporaly);
 		await addDataTemporaly(temporaly);
 		// console.log(getCards());
 };
-//!CAMBIOO
 //Obtenemos los datos de cada carta para asi hacer un fetch
-export const getDatahabilitiesCards = async (data:Array<Results>):Promise<void> => {
+export const getDatahabilitiesCards = async (data:Array<Results>):Promise<Array<Card>> => {
 	//Pasamos por cada una
 	for(let ele of data){
 		console.log(ele.url);
@@ -44,5 +43,5 @@ export const getDatahabilitiesCards = async (data:Array<Results>):Promise<void> 
 			})
 	};
 	//SHOW STATS
-	await lengthStats();
+	return await lengthStats();
 };
