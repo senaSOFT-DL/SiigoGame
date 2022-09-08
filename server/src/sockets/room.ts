@@ -6,15 +6,17 @@ import { Socket as DataSocket, SocketJoinUser } from '../interfaces/Socket';
 import { DataRoom } from '../interfaces/Room';
 import { DataUser } from '../interfaces/User';
 //Import services
-import { createIdRoom, isValidatedIdRoom, saveRoomService } from '../services/room.service';
+import { createIdRoom, getUserdByIdRoom, isValidatedIdRoom, saveRoomService } from '../services/room.service';
 import { getUsers, isValidAddUsers } from '../services/user.service';
 import { getResponse } from '../services/getResponse.service';
 import { addNameUser } from '../services/user.service';
 //Import controllers
 //Import enums
 import {TypeRole} from '../types/enums';
-import { getCards } from '../controllers/pokeApi.controller';
+import { getCards, getDatahabilitiesCards } from '../controllers/pokeApi.controller';
 import { getUsersByIdRoom } from '../models/data';
+import { getCardsTempo } from '../models/cards';
+import { Results } from '../interfaces/Cards';
 
 //Deconstruction
 const {Exist,Room,User} = TypeRole;
@@ -59,6 +61,14 @@ export const game = (io:Server):void =>{
                 });
                 // Else
                 console.log(`Room Create ✔ =\t${_idRoom}`);
+                //!CAMBIO
+                try {
+                    //Obtenemos cartas 
+                    await getCards();
+                } catch (error) {
+                    throw new Error(`ERROR: get Carts API:: ${error} `);
+                    
+                }
                 return callback({
                     roomId:_idRoom,
                     ...getResponse(200)
@@ -171,15 +181,20 @@ export const game = (io:Server):void =>{
             });
             //?Ready Game
             socket.on('ready', async (idRoom:string, callback) => {
+                //!CAMBIO
+                try {
+                    //Obtenemos cartas con habilidades
+                    //OBTENEMOS CARTAS TEMPORALES
+                    const cardsTempo:Array<Results> = await getCardsTempo();
+                    await getDatahabilitiesCards(cardsTempo);
+                } catch (error) {
+                    throw new Error(`ERROR: get Data Carts TEMPO:: ${error} `);
+                }
+                const users = await getUserdByIdRoom(idRoom);
                 callback({
+                    user:users,
                     ...getResponse(200)
                 })
-                try {
-                    await getCards();
-                } catch (error) {
-                    throw new Error(`ERROR: get Data Carts:: ${error} `);
-                    
-                }
                 console.log('STARTED GAME');
                 socket.to(idRoom).emit('start',{msg:'started game'});
             });

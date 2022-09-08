@@ -1,13 +1,16 @@
-
+//!CAMBIO
 export interface DataCards {
     id:string;
     urlImage:string;
     name:string;
-    // statistics?:Statistics;
+    hp:number;
+    attack:number;
+    defense:number;
+    speed:number;
     gender:string;
 }
-
-interface Statistics{
+//!CAMBIO
+export interface Statistics{
     hp:number;
     attack:number;
     Defense:string;
@@ -22,6 +25,16 @@ export interface DataApi {
 }
 
 export interface Results {
+    name:string;
+    url:string;
+}
+//STATS DE CADA CARTA
+export interface Stats {
+    base_stat:number;
+    effort:number;
+    stat:Stat
+}
+export interface Stat {
     name:string;
     url:string;
 }

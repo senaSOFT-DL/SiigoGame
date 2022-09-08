@@ -96,3 +96,11 @@ export const getUsersByIdRoom = async (idRoom:string):Promise<number|null> => {
 export const getRooms = ():Array<DataRoom> => {
 	return Rooms;
 }
+//!CAMBIO
+export const getUsersName = async (idRoom:string):Promise<Array<string|null>|undefined> => {
+	const room:DataRoom|undefined = await getRoomById(idRoom);
+	//NO escontro la sala
+	if(!room) return; undefined//
+	const getUserd:Array<string|null> = room._namesUsers;
+	return getUserd;
+} 
