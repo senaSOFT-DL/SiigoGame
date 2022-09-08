@@ -7,6 +7,7 @@ const GameContext = React.createContext();
 export const GameProvider = ({ children }) => {
   //initial data state
   const [gameData, setGameData] = React.useState({});
+  const [type, setType] = React.useState("");
 
   //Load data from localStorage to React state
   React.useEffect(() => {
@@ -17,6 +18,13 @@ export const GameProvider = ({ children }) => {
     setGameData(savedData);
   }, []);
 
+  React.useEffect(() => {
+    const jsonData = localStorage.getItem("type");
+    const savedData = JSON.parse(jsonData);
+    if (!savedData) return;
+    // load data to state
+    setType(savedData);
+  }, []);
 
   const changeData = (timestamp) => {
     const dataToSave = { timestamp };
@@ -32,11 +40,11 @@ export const GameProvider = ({ children }) => {
   const changeType = (type) => {
     const dataToSave = { type };
     // save data to LocalStorage and react State
-    const data = localStorage.getItem("gameData");
-    const savedData = JSON.parse((item => [...item, dataToSave]));
-    setGameData(savedData);    
+    localStorage.setItem("type", JSON.stringify(dataToSave));
+    //update user data
+    setType(dataToSave);
   };
- 
+
   const clearData = () => {
     //clear data from LocalStorage and react State
     const clear = null;
@@ -47,7 +55,8 @@ export const GameProvider = ({ children }) => {
   const game = {
     game: gameData, // we expose state that changes
     changeData, // change state and persist data
-    clearData, // clear state and data
+    clearData,
+    type : type, // we expose state that changes
     changeType, // change state and persist data
   };
 

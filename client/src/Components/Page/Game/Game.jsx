@@ -10,10 +10,23 @@ import { UserCards } from "../../UI/UserCards/UserCards";
 import { PlayersCount } from "../../UI/PlayersCount/PlayersCount";
 import socket from "../../../WebSockets/WebSockets";
 import { Type } from "../../UI/Type/Type";
+import { ComparingCards } from "../../Layout/ComparingCards/ComparingCards";
 //import timer ;
 export default function Game() {
-  const { game, clearData } = React.useContext(GameContext);
+  const { game, clearData, type } = React.useContext(GameContext);
 
+  //set owner turn
+  const [ownerTurn, setOwnerTurn] = React.useState(true);
+
+
+  React.useEffect(() => {
+    //validate owner turn
+    socket.on("turn", (data) => {
+      if (data.id === socket.id) {
+        return setOwnerTurn(true);
+      }
+    });
+  }, [socket]);
 
   //create a navigate function to redirect to the home page
   const navigate = useNavigate();
@@ -40,8 +53,8 @@ export default function Game() {
           <PlayersCount />
         </div>
         <div className="game-table-cards">
-          
-          <Type />
+          {ownerTurn && <Type />}
+          <ComparingCards />
         </div>
       </div>
       <UserCards />

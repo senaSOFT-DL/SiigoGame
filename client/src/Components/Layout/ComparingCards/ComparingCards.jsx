@@ -1,10 +1,19 @@
 import React from "react";
+import GameContext from "../../../GameContext/GameContext";
 //import sockets
 import socket from "../../../WebSockets/WebSockets";
 import { PokeCard } from "../../UI/PokeCard/PokeCard";
 
 //export comparing cards component
 export const ComparingCards = () => {
+
+  const { type }  = React.useContext(GameContext);
+
+
+  React.useEffect(() => {
+  }, [type]);
+  
+  //state to save the cards
   const [cards, setCards] = React.useState([]);
   React.useEffect(() => {
     //received the comparing cards to socket
@@ -14,24 +23,11 @@ export const ComparingCards = () => {
     });
   }, [socket]);
 
+    //send the user to socket
   return (
     <div>
-      {
-        //render the comparing cards
-        cards.map((item) => {
-          return (
-            <PokeCard
-              key={item.id}
-              name={item.name}
-              image={item.image}
-              hp={item.hp}
-              attack={item.attack}
-              defense={item.defense}
-              speed={item.speed}
-            />
-          );
-        })
-      }
+     
+      
     </div>
   );
 };

@@ -9,11 +9,11 @@ import UserContext from "../../../UserContext/UserContext";
 import { useNavigate } from "react-router-dom";
 import RoomContext from "../../../roomContext/RoomContext";
 
-export const AwaitRoom = ({ role, roomId }) => {
+export const AwaitRoom = ({ role }) => {
   //navigate to game room
   const navigate = useNavigate();
   //state for count the players in the room
-  const [players, setPlayers] = React.useState(1);
+  const [players, setPlayers] = React.useState(2);
 
   //use the user context
   const { user } = React.useContext(UserContext);

@@ -14,9 +14,7 @@ export const PlayersCount = () => {
     const [ players, setPlayers ] = React.useState(0);
 
     React.useEffect(()=>{
-        console.log(room)
         socket.emit("users:count" ,room.room ,(response )=>{
-            console.log(response)
           return setPlayers(response.Users)
         })
         

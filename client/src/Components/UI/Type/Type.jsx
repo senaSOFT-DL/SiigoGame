@@ -1,36 +1,41 @@
-import React from 'react'
-import GameContext from '../../../GameContext/GameContext'
+import React from "react";
+import GameContext from "../../../GameContext/GameContext";
 //import socket
 //import stylesheet
-import './Type.scss'
+import "./Type.scss";
 
 //component to select type of comparison
 export const Type = () => {
-    //state to save the type selected
-    const [type, setType] = React.useState('')
+  //state to save the type selected
+  const [type, setType] = React.useState("");
 
-    const { changeType } = React.useContext(GameContext);
+  const { changeType } = React.useContext(GameContext);
 
-    React.useEffect(() => {
-        //send tipe of comparision to socket
-        console.log(type);
-    }, [type])
+  React.useEffect(() => {
+    changeType(type);
+  }, [type]);
 
   return (
-    <div className="type-selected">
-        <div className="type-content" onClick={()=> setType('hp')}>
+    <div className="overlay-type">
+      <div className="type-box">
+        <div className="type-header">
+            <h2>select the attribute for this round</h2>
+        </div>
+        <div className="type-selected">
+          <div className="type-content" onClick={() => setType("hp")}>
             <p>hp</p>
-        </div>
-        <div className="type-content" onClick={()=> setType('attack')}>
+          </div>
+          <div className="type-content" onClick={() => setType("attack")}>
             <p>attack</p>
-        </div>
-        <div className="type-content" onClick={()=> setType('defense')}>
+          </div>
+          <div className="type-content" onClick={() => setType("defense")}>
             <p>defense</p>
-        </div>
-        <div className="type-content" onClick={()=> setType('speed')}>
+          </div>
+          <div className="type-content" onClick={() => setType("speed")}>
             <p>speed</p>
+          </div>
         </div>
+      </div>
     </div>
-    
-  )
-}
+  );
+};

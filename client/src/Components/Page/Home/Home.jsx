@@ -6,9 +6,13 @@ import { MainMode } from "../../Layout/MainMode/MainMode";
 import RoomContext from "../../../roomContext/RoomContext";
 //import stylesheet
 import "./Home.scss";
+import socket from "../../../WebSockets/WebSockets";
 
 //export the component
 export default function Home() {
+
+  
+
   return (
     <div>
       {

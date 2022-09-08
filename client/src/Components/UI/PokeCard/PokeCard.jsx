@@ -21,7 +21,6 @@ export const PokeCard = ({ url , className }) => {
     axios
       .get(url)
       .then((response) => {
-        console.log(response.data);
         setName(response.data.name);
         setImg(response.data.sprites.front_default);
         setStat1(response.data.stats[0].stat.name);
