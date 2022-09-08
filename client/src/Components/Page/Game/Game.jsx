@@ -24,7 +24,7 @@ export default function Game() {
     socket.on("data:card" , (data) => {
       console.log(data);
       });
-  }, [socket]);
+  },);
 
   //create a navigate function to redirect to the home page
   const navigate = useNavigate();
