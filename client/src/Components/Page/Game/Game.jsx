@@ -21,11 +21,9 @@ export default function Game() {
 
   React.useEffect(() => {
     //validate owner turn
-    socket.on("turn", (data) => {
-      if (data.id === socket.id) {
-        return setOwnerTurn(true);
-      }
-    });
+    socket.on("data:card" , (data) => {
+      console.log(data);
+      });
   }, [socket]);
 
   //create a navigate function to redirect to the home page

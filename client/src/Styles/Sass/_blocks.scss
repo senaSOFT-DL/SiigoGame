@@ -82,7 +82,6 @@
 }
 
 %button-block{
-  outline: solid 1px red;
   width: 200px;
   padding: 8px;
   border-radius: 10px;
@@ -92,4 +91,5 @@
   color: $tertialy-color;
   border: none;
   font-weight: bolder;
+  cursor: pointer;
 }
