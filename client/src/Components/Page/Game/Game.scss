@@ -9,6 +9,8 @@
     justify-content: space-between;
     padding: .5em 5em;
     gap: 0.5em;
+    background: url(https://cdn.pixabay.com/photo/2017/09/04/12/38/pokemon-ball-2713825_960_720.png) no-repeat center center / cover;
+
 
     .game-table{
         width: 100%;
@@ -18,7 +20,7 @@
         gap: 3em;
 
         .game-table-user{
-            min-width: 310px;
+            min-width: 210px;
             height: 100%;
             border: 5px solid $secondary-color;
             border-radius: 10px;

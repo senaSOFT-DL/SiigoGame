@@ -93,3 +93,9 @@
   font-weight: bolder;
   cursor: pointer;
 }
+
+%field-error{
+  font-family: poppins;
+  color: $secondary-color;
+  font-size: 11px;
+}

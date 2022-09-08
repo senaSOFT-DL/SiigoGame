@@ -18,9 +18,10 @@ export const AwaitRoom = ({ role }) => {
   //use the user context
   const { user } = React.useContext(UserContext);
   const { room } = React.useContext(RoomContext);
+  const [loading, setLoading] = React.useState(false);
 
   //update in real time the players in the room
-  React.useEffect(() => {}, [user, room]);
+  React.useEffect(() => {}, [user, room , loading]);
 
   //effect for count in real time the players in the room
   React.useEffect(() => {
@@ -32,8 +33,9 @@ export const AwaitRoom = ({ role }) => {
 
   //function to validate users and navigate to the game room
   const sendToGame = () => {
+    setLoading(true);
     socket.emit("ready", user.room, (response) => {
-      if (response.code === 200) {
+      if (response.code === 200) {    
         navigate("/game");
       }
     });
@@ -47,6 +49,14 @@ export const AwaitRoom = ({ role }) => {
       }
     });
   }, [socket]);
+
+  //validate enter key to send to game
+  const validateKey = (event) => {
+    let charCode = event.keyCode;
+    if (charCode === 13) {
+      sendToGame();
+    }
+  };
 
   return (
     <div className="await-overlay">
@@ -64,8 +74,8 @@ export const AwaitRoom = ({ role }) => {
           </div>
 
           <Loading />
-
-          <button onClick={sendToGame}>Start game</button>
+          {loading && <h2>game is loading please wait...</h2>}
+          <button onClick={sendToGame} onKeyUp={event => validateKey(event)}>Start game</button>
         </div>
       )}
       {role === "player" && (
@@ -83,6 +93,9 @@ export const AwaitRoom = ({ role }) => {
           }
           <Loading />
           <div className="status-container">
+            {loading &&
+            <h2>game is loading please wait</h2>
+            }
             <h2 className="status">waiting for the owner to start the game</h2>
           </div>
         </div>

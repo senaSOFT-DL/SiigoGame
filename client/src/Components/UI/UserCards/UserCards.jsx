@@ -1,13 +1,15 @@
 //import stylesheet
 import "./UserCards.scss";
+import axios from "axios";
 //import socket
 import socket from "../../../WebSockets/WebSockets";
+import {PokeCard } from '../PokeCard/PokeCard';
 
 //export a component
-import React from "react";
+import React, { useEffect } from "react";
 
 export const UserCards = () => {
-  const [cards, setCards] = React.useState([]);
+  const [data, setData] = React.useState([]);
 
   React.useEffect(() => {
     //received the user cards to socket
@@ -24,10 +26,26 @@ export const UserCards = () => {
       console.log(response);
     });
   };
-  
 
-  return (
-    <div className="user-cards">
-    </div>
-  );
+  useEffect(() => {
+    //get the user cards
+    getData();
+  }, []);
+
+  //provisional data to test the component
+  const getData = async () => {
+    await axios
+      .get("https://pokeapi.co/api/v2/pokemon/6")
+      .then((response) => {
+        return setData(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  return(
+  <div className="user-cards">
+    <PokeCard data={data} />
+  </div>);
 };

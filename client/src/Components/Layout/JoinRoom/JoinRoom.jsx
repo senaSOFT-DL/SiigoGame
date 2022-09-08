@@ -25,6 +25,13 @@ export const JoinRoom = () => {
     setShowModal(!showModal);
   };
 
+  const validateKey = (event) => {
+    let charCode = event.keyCode;
+    if (charCode === 13) {
+      SubmitEvent();
+    }
+  };
+
   return (
     <>
       <div className="joinroom-content" onClick={() => handlerState()}>
@@ -88,10 +95,10 @@ export const JoinRoom = () => {
                   <Field type="text" name="username" placeholder="username" autoComplete="off" />
                   <ErrorMessage
                     name="username"
-                    component={() => <p>{errors.username}</p>}
+                    component={() => <p className="field-error">{errors.username}</p>}
                   />
                   <Field type="text" name="room" placeholder="room" autoComplete="off" />
-                  <button className="join-button" type="submit">join</button>
+                  <button onKeyUp={event => validateKey(event)} className="join-button" type="submit">join</button>
                 </div>
               </Form>
             )}

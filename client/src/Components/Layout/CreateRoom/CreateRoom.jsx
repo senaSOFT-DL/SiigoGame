@@ -20,7 +20,12 @@ export const CreateRoom = () => {
 
   const { changeData } = React.useContext(UserContext);
 
-  
+  const validateKey = (event) => {
+    let charCode = event.keyCode;
+    if (charCode === 13) {
+      SubmitEvent();
+    }
+  };
 
   const handlerState = () => {
     setShowModal(!showModal);
@@ -54,14 +59,13 @@ export const CreateRoom = () => {
             }}
             //send Form data to server
             onSubmit={(values) => {
-          
               //socket emit to create Room
               socket.emit("room:create", values.username, (response) => {
                 //validate if the room was created
 
                 if (response.code === 200) {
                   //set the new user data
-                  changeData(values.username, response.roomId , "ownerP");
+                  changeData(values.username, response.roomId, "ownerP");
                   //close primary modal
                   setShowModal(false);
                   //if the room was created, show the loading component
@@ -73,16 +77,26 @@ export const CreateRoom = () => {
             {({ errors }) => (
               <Form className="action-form">
                 <div className="header-modal">
-                  <AiOutlineCloseCircle onClick={() => handlerState()}  className="icon-header"/>
+                  <AiOutlineCloseCircle
+                    onClick={() => handlerState()}
+                    className="icon-header"
+                  />
                 </div>
                 <div className="form-content">
                   <h1 className="title">Create a room</h1>
-                  <Field type="text" name="username"  placeholder="usename" autoComplete="off" />
+                  <Field
+                    type="text"
+                    name="username"
+                    placeholder="usename"
+                    autoComplete="off"
+                  />
                   <ErrorMessage
                     name="username"
-                    component={() => <p>{errors.username}</p>}
+                    component={() => <p className="field-error">{errors.username}</p>}
                   />
-                  <button className="form-button" type="submit">create</button>
+                  <button onKeyUp={(event => validateKey(event))} className="form-button" type="submit">
+                    create
+                  </button>
                 </div>
               </Form>
             )}

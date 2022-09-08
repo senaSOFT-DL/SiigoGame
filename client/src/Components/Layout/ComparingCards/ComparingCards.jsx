@@ -1,8 +1,7 @@
 import React from "react";
 import GameContext from "../../../GameContext/GameContext";
+import './ComparingCards.scss';
 //import sockets
-import socket from "../../../WebSockets/WebSockets";
-import { PokeCard } from "../../UI/PokeCard/PokeCard";
 
 //export comparing cards component
 export const ComparingCards = () => {
@@ -16,7 +15,7 @@ export const ComparingCards = () => {
 
   //send the user to socket
   return (
-    <div>
+    <div className="comparing-cards-content">
       
     </div>
   );
