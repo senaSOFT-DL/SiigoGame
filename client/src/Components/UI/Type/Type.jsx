@@ -1,4 +1,5 @@
 import React from 'react'
+import GameContext from '../../../GameContext/GameContext'
 //import socket
 //import stylesheet
 import './Type.scss'
@@ -7,6 +8,8 @@ import './Type.scss'
 export const Type = () => {
     //state to save the type selected
     const [type, setType] = React.useState('')
+
+    const { changeType } = React.useContext(GameContext);
 
     React.useEffect(() => {
         //send tipe of comparision to socket

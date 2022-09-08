@@ -1,0 +1,15 @@
+@import '../../../Styles/Sass/Variables';
+
+.count-players{
+    height: 85%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .counter{
+        font-family: poppins;
+        font-size: 120px;
+        font-weight: 600;
+        color: $secondary-color;
+    }
+}

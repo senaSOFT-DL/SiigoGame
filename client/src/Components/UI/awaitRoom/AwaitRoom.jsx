@@ -13,7 +13,7 @@ export const AwaitRoom = ({ role, roomId }) => {
   //navigate to game room
   const navigate = useNavigate();
   //state for count the players in the room
-  const [players, setPlayers] = React.useState(2);
+  const [players, setPlayers] = React.useState(1);
 
   //use the user context
   const { user } = React.useContext(UserContext);
@@ -24,10 +24,9 @@ export const AwaitRoom = ({ role, roomId }) => {
 
   //effect for count in real time the players in the room
   React.useEffect(() => {
-    socket.on("players", (data, response) => {
-      socket.emit("users:count", room, (response) => {
-        //validate players
-      });
+    socket.emit("users:count", room.room, (response) => {
+      //validate players
+      return setPlayers(response.Users);
     });
   }, [socket]);
 
@@ -43,7 +42,6 @@ export const AwaitRoom = ({ role, roomId }) => {
   //function to validate players
   useEffect(() => {
     socket.on("start", (data) => {
-      console.log(data);
       if (data.msg === "started game") {
         navigate("/game");
       }
@@ -57,9 +55,9 @@ export const AwaitRoom = ({ role, roomId }) => {
           {
             //conditional render for show the players in the room
             players === 1 ? (
-              <h2>Esperando jugadores...</h2>
+              <h2>Waiting players...</h2>
             ) : (
-              <h2>Jugadores en sala: {players}</h2>
+              <h2>Players in room: {players}</h2>
             )
           }
           <div className="code-room">
@@ -71,7 +69,7 @@ export const AwaitRoom = ({ role, roomId }) => {
           {
             //conditional render for show the button to start the game
             players >= 2 ? (
-              <button onClick={sendToGame}>Empezar partida</button>
+              <button onClick={sendToGame}>Start game</button>
             ) : null
           }
         </div>
@@ -81,9 +79,9 @@ export const AwaitRoom = ({ role, roomId }) => {
           {
             //conditional render for show the players in the room
             players === 1 ? (
-              <h2>Esperando jugadores...</h2>
+              <h2>Waiting Players...</h2>
             ) : (
-              <h2>Jugadores en sala... {players}</h2>
+              <h2>Players in room... {players}</h2>
             )
           }
           {
@@ -91,7 +89,7 @@ export const AwaitRoom = ({ role, roomId }) => {
           }
           <Loading />
           <div className="status-container">
-            <h2 className="status">Esperando al lider para empezar la partida</h2>
+            <h2 className="status">waiting for the owner to start the game</h2>
           </div>
         </div>
       )}

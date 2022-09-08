@@ -28,7 +28,7 @@ export const RoomProvider = ({ children }) => {
   };
 
  
-  const clearData = () => {
+  const clearDataRoom = () => {
     //clear data from LocalStorage and react State
     const clear = null;
     localStorage.setItem("roomData", clear);
@@ -38,7 +38,7 @@ export const RoomProvider = ({ children }) => {
   const room = {
     room: roomData, // we expose state that changes
     changeData, // change state and persist data
-    clearData, // clear state and data
+    clearDataRoom // clear state and data
   };
 
   return <RoomContext.Provider value={room}>{children}</RoomContext.Provider>;

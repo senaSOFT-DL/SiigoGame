@@ -68,6 +68,7 @@ export const JoinRoom = () => {
                 } else {
                   //user joined to room
                   console.warn("user joined room");
+                  handlerState(); 
                   setUserJoined(true);
                 }
               });
@@ -83,13 +84,13 @@ export const JoinRoom = () => {
                   />
                 </div>
                 <div className="form-content">
-                  <h1>Unirse a una partida</h1>
-                  <Field type="text" name="username" placeholder="username" />
+                  <h1>Join the battle</h1>
+                  <Field type="text" name="username" placeholder="username" autoComplete="off" />
                   <ErrorMessage
                     name="username"
                     component={() => <p>{errors.username}</p>}
                   />
-                  <Field type="text" name="room" placeholder="roomId" />
+                  <Field type="text" name="room" placeholder="room" autoComplete="off" />
                   <button className="join-button" type="submit">join</button>
                 </div>
               </Form>

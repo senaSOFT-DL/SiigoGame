@@ -1,27 +1,72 @@
+@import "../../../Styles/Sass/Variables";
+
 .card-container {
-  width: 180px;
-  height: 280px;
-  outline: solid 1px red;
+  min-width: 130px;
+  border: 3px solid $secondary-color;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 0.5em;
-  gap: 0.5em;
+  padding: .5em;
+  gap: 0.35em;
+
+  .title-card {
+    font-family: $primary-font;
+    font-size: 13px;
+    text-transform: capitalize;
+    letter-spacing: 1px;
+  }
+
+  .img-card-container {
+    width: 90%;
+    height: 50px;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
 
   .habilities-container {
-    outline: solid 1px red;
+    border-radius: 5px;
+    outline: 2px solid $tertialy-color;
     width: 100%;
     display: grid;
     grid-template-columns: 50% 50%;
     grid-template-rows: 50% 50%;
 
-    .hability-content{
-      outline: solid 1px red;
+    .hability-content {
       display: flex;
       width: 100%;
       height: 100%;
-      padding: 0.5em;
+      flex-direction: column;
+      padding: 3px;
+      align-items: center;
+
+      p {
+        font-family: $primary-font;
+        font-size: 8px;
+        width: 100%;
+        text-align: center;
+        padding: 1px;
+      }
+    }
+  }
+  .type-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+    p {
+      font-family: $primary-font;
+      font-size: 8px;
+      text-transform: capitalize;
+      padding: 2px;
+      color: $primary-color;
+      background: $secondary-color;
+      border-radius: 8px;
+      padding: 3px 10px;
     }
   }
 }

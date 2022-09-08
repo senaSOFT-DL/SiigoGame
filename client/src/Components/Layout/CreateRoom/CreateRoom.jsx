@@ -20,6 +20,8 @@ export const CreateRoom = () => {
 
   const { changeData } = React.useContext(UserContext);
 
+  
+
   const handlerState = () => {
     setShowModal(!showModal);
   };
@@ -41,18 +43,17 @@ export const CreateRoom = () => {
               let errors = {};
               // username validate
               if (!values.username) {
-                errors.username = "Por favor ingresa un nombre";
+                errors.username = "Please enter a name";
                 //username regex validate
               } else if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(values.username)) {
                 errors.username =
-                  "El nombre solo puede contener letras y espacios";
+                  "the name can only contain letters and spaces";
               }
               //error return to component
               return errors;
             }}
             //send Form data to server
             onSubmit={(values) => {
-              console.log(values);
 
               //socket emit to create Room
               socket.emit("room:create", values.username, (response) => {
@@ -60,7 +61,7 @@ export const CreateRoom = () => {
 
                 if (response.code === 200) {
                   //set the new user data
-                  changeData(values.username, response.roomId);
+                  changeData(values.username, response.roomId , "ownerP");
                   //close primary modal
                   setShowModal(false);
                   //if the room was created, show the loading component
@@ -75,8 +76,8 @@ export const CreateRoom = () => {
                   <AiOutlineCloseCircle onClick={() => handlerState()}  className="icon-header"/>
                 </div>
                 <div className="form-content">
-                  <h1 className="title">Crea una partida</h1>
-                  <Field type="text" name="username"  placeholder="usename"/>
+                  <h1 className="title">Create a room</h1>
+                  <Field type="text" name="username"  placeholder="usename" autoComplete="off" />
                   <ErrorMessage
                     name="username"
                     component={() => <p>{errors.username}</p>}

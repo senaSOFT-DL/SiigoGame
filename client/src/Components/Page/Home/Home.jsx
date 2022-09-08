@@ -3,6 +3,7 @@ import React from "react";
 import { Helmet } from "react-helmet";
 import { Overlay } from "../../../Styles/StyledComponents";
 import { MainMode } from "../../Layout/MainMode/MainMode";
+import RoomContext from "../../../roomContext/RoomContext";
 //import stylesheet
 import "./Home.scss";
 

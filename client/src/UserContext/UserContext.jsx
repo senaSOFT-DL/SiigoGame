@@ -17,8 +17,8 @@ export const UserProvider = ({ children }) => {
     setUserData(savedData);
   }, []);
 
-  const changeData = (username, room) => {
-    const dataToSave = { username, room };
+  const changeData = (username, room , role) => {
+    const dataToSave = { username, room , role };
     // save data to LocalStorage and react State
 
     //data persistence

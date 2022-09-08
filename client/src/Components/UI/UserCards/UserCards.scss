@@ -1,0 +1,11 @@
+@import '../../../Styles/Sass/Variables';
+
+.user-cards{
+    margin: auto;
+    outline: solid 3px $secondary-color;
+    padding: .25em;
+    gap: .25em;
+    display: flex;
+    border-radius: 10px;
+
+}
