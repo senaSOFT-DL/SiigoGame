@@ -27,7 +27,7 @@ export const saveRoomService = async (data:DataRoom):Promise<boolean|string> => 
 	try {
 		//SAVE room -> Rooms 
 		await saveRoom(room);
-		// await saveIdroomRedis(data._idRoom,_owner);
+		await saveIdroomRedis(data._idRoom,_owner);
 	} catch (error) {
 		console.error(`ERROR:ADD Room to Rooms`);
 		return false;

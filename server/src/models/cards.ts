@@ -1,5 +1,5 @@
 import { Results, Stats } from '../interfaces/Cards';
-import { createCard } from '../services/cards.service';
+import { createCard, createCard2 } from '../services/cards.service';
 import { Card } from './entities/Card';
 const resulDataTamporaly:Array<Results> = [];
 //DATA STATS CARD
@@ -7,12 +7,16 @@ const stats:Array<Stats> = [] ;
 //DATA CARD
 const cards:Array<Card> = [];
 //IDS
+// const ids:Array<Array<string>> = [
+//     ['1A','1B','1C','1D','1E','1F','1G','1H'],
+//     ['2A','2B','2C','2D','2E','2F','2G','2H'],
+//     ['3A','3B','3C','3D','3E','3F','3G','3H'],
+//     ['4A','4B','4C','4D','4E','4F','4G','4H'],
+// ];
+
 const ids:Array<Array<string>> = [
-    ['1A','1B','1C','1D','1E','1F','1G','1H'],
-    ['2A','2B','2C','2D','2E','2F','2G','2H'],
-    ['3A','3B','3C','3D','3E','3F','3G','3H'],
-    ['4A','4B','4C','4D','4E','4F','4G','4H'],
-]
+    ['1A','1B','1C','1D','1E','1F','1G','1H','2A','2B','2C','2D','2E','2F','2G','2H','3A','3B','3C','3D','3E','3F','3G','3H','4A','4B','4C','4D','4E','4F','4G','4H']
+];
 
 export const addDataCardTemporaly = async (data:Array<Results>) => {
     //Agregamos
@@ -28,7 +32,7 @@ export const getCountCart = async () => {
 export const getCardsTempo = async ():Promise<Array<Results>> => {
     return resulDataTamporaly;
 };
-//ADD STATS
+//ADD STA    TS
 export const addStats = (data:Stats) => {
     stats.push(data);
 };
@@ -48,13 +52,14 @@ export const joinDataCard = async (princiData:Array<Results>, stats:Array<Stats>
         const princi:Results = princiData[i]
         //TODO- OBTENER STATS, validar cada uno y pasarlo
         const getStat = stats[i];
+        const id:string = ids[0][i];
         // stat.push(getStat);
         // console.log('-> ', stat);
         // console.log(stat.find(ele => ele.stat ));
-        
         // console.log(princi,'\n',stat);
         //?CREAMOS OBJ CARTA
-        const newCard:Card = await createCard(ids,princi.name,princi.url);
+        //TODO-CAMBIAR PARAM ids -> id
+        const newCard:Card = await createCard(id,princi.name,princi.url);
         cards.push(newCard);
     }
 };

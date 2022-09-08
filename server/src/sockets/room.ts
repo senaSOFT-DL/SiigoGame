@@ -62,7 +62,6 @@ export const game = (io:Server):void =>{
                 });
                 // Else
                 console.log(`Room Create ✔ =\t${_idRoom}`);
-                //!CAMBIO
                 try {
                     //Obtenemos cartas 
                     await getCards();
@@ -78,32 +77,7 @@ export const game = (io:Server):void =>{
             });
             //?Create User
             // socket.on('user:create', async (data:DataUser, callback) => {
-            //     // TODO-Validate Data
-
-            //     //Validamos que el id de la sala exista
-            //     const response:boolean|null = await isValidatedIdRoom(data._idRoom);
-            //     if(!response) return callback({
-            //         //Not found
-            //         ...getResponse(404)
-            //     })
-            //     //Save nameUser Room
-            //     const result:boolean|null|string = await addNameUser(data._idRoom, data._name);
-            //     if(!result)return callback({
-            //         msg:Room,
-            //         ...getResponse(404)
-            //     });
-            //     if(result === 'exist') return callback({
-            //         msq:User,
-            //         ...getResponse(600)
-            //     });
-            //     if(result === true) return callback({
-            //         ...getResponse(200)
-            //     });
-            //     //Connect user
-            //     socket.join(data._idRoom);
-            //     return callback({
-            //         ...getResponse(200)
-            //     })
+            
             // });
             //?Cound Users
             socket.on('users:count',async (idRoom:string, callback)=>{

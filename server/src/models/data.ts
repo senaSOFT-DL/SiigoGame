@@ -129,8 +129,8 @@ export const joinDataGamen =async (idRoom:string,cards:Array<Card>,users:Array<s
 			cards1.push(cardsAll[i]);
 			//DEL
 			const del = cardsAll.splice(i,0);
-			console.log('User1-> ',cardsAll[i]);
-			console.log('DEL: ',del);
+			// console.log('User1-> ',cardsAll[i]);
+			// console.log('DEL: ',del);
 			// console.log('Cantidad agregados: ',i);
 		};
 		for (let i = 0; i < 16; i++) {
@@ -138,7 +138,7 @@ export const joinDataGamen =async (idRoom:string,cards:Array<Card>,users:Array<s
 			cards2.push(cardsAll[i]);
 			//DEL
 			cardsAll.splice(i,1);
-			console.log('User2-> ',cardsAll[i]);
+			// console.log('User2-> ',cardsAll[i]);
 			// console.log('Cantidad agregados: ',i);
 		}
 		console.group('LENGTH card add:');
