@@ -11,6 +11,8 @@ const responses:ResponseMessage[] = [
 	//Create Codes
 	{status:'Status: User exist!', code:600},
 	{status:'Status: Full Room', code:601},
+	//!CAMBIO
+	{status:'Status: Cards not obtained',code:603}
 ];
 //Get codes
 export const getResponse = (code:number):ResponseMessage|undefined => {
